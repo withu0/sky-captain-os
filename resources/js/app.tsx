@@ -13,7 +13,7 @@ createInertiaApp({
         resolvePageComponent(
             `./pages/${name}.tsx`,
             import.meta.glob('./pages/**/*.tsx'),
-        ),
+        ).then((module) => module.default),
     setup({ el, App, props }) {
         const root = createRoot(el);
 

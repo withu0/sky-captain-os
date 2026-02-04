@@ -1,4 +1,5 @@
-import { Head, useForm } from '@inertiajs/react';
+import { SkyCaptainAuthCard } from '@/components/sky-captain-auth-card';
+import { Head, Link, useForm } from '@inertiajs/react';
 
 export default function AdminLogin() {
     const { data, setData, post, processing, errors } = useForm({
@@ -16,16 +17,17 @@ export default function AdminLogin() {
             <Head>
                 <title>管理画面ログイン | 天空隊長</title>
             </Head>
-            <div className="min-h-screen bg-[#E8E8E8] flex items-center justify-center p-4">
+            <div className="min-h-screen bg-white flex items-center justify-center p-4">
                 <p className="text-muted-foreground text-sm absolute top-4 left-4">Admin_ログイン</p>
-                <div className="w-full max-w-md border border-[#B8D4E8] rounded-lg bg-[#F5F5F5] p-8 shadow-sm">
+                <div className="w-full max-w-md border border-[#B8D4E8] rounded-lg bg-white p-8 shadow-sm">
                     <div className="text-center mb-8">
-                        <div className="inline-block border border-[#C4A574] rounded px-4 py-2 mb-1">
-                            <span className="text-dark text-2xl font-bold" style={{ fontFamily: 'var(--font-mplus2)' }}>
-                                天空隊長
-                            </span>
-                        </div>
-                        <p className="text-[#C4A574] text-sm border-b border-[#C4A574] pb-0.5 w-fit mx-auto">
+                        <h1
+                            className="text-purple text-2xl font-bold mb-1"
+                            style={{ fontFamily: 'var(--font-mplus2)' }}
+                        >
+                            天空隊長
+                        </h1>
+                        <p className="text-purple text-sm border-b border-purple pb-0.5 w-fit mx-auto">
                             てんくうたいちょう
                         </p>
                     </div>
@@ -65,10 +67,15 @@ export default function AdminLogin() {
                         <button
                             type="submit"
                             disabled={processing}
-                            className="w-full bg-[#C4A574] text-white font-semibold py-3 px-6 rounded hover:opacity-90 disabled:opacity-70"
+                            className="w-full bg-[#ED0000] text-white font-semibold py-3 px-6 rounded hover:opacity-90 disabled:opacity-70"
                         >
                             ログイン
                         </button>
+                        <p className="text-center text-sm text-muted-foreground">
+                            <Link href="/register" className="text-purple hover:underline">
+                                新規登録はこちら
+                            </Link>
+                        </p>
                     </form>
                 </div>
             </div>

@@ -88,8 +88,12 @@ Route::post('admin/logout', function (Request $request) {
     Auth::logout();
     $request->session()->invalidate();
     $request->session()->regenerateToken();
-    return redirect('/admin');
+    return redirect('/admin/logged-out');
 })->name('admin.logout');
+
+Route::get('admin/logged-out', function () {
+    return Inertia::render('admin/logged-out');
+})->name('admin.logged-out');
 
 Route::middleware(['admin.auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('users', function () {
@@ -131,5 +135,9 @@ Route::middleware(['admin.auth'])->prefix('admin')->name('admin.')->group(functi
         return Inertia::render('admin/orders/index', ['orders' => $orders]);
     })->name('orders.index');
 });
+
+Route::get('logged-out', function () {
+    return Inertia::render('auth/logged-out');
+})->name('logged-out');
 
 require __DIR__.'/settings.php';

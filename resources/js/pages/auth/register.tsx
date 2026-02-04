@@ -1,114 +1,97 @@
 import InputError from '@/components/input-error';
+import { SkyCaptainAuthCard } from '@/components/sky-captain-auth-card';
 import TextLink from '@/components/text-link';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
-import AuthLayout from '@/layouts/auth-layout';
 import { login } from '@/routes';
 import { store } from '@/routes/register';
 import { Form, Head } from '@inertiajs/react';
 
 export default function Register() {
     return (
-        <AuthLayout
-            title="Create an account"
-            description="Enter your details below to create your account"
-        >
-            <Head title="Register" />
+        <SkyCaptainAuthCard>
+            <Head title="新規登録 | 天空隊長" />
             <Form
                 {...store.form()}
                 resetOnSuccess={['password', 'password_confirmation']}
                 disableWhileProcessing
-                className="flex flex-col gap-6"
+                className="flex flex-col gap-5"
             >
                 {({ processing, errors }) => (
                     <>
-                        <div className="grid gap-6">
-                            <div className="grid gap-2">
-                                <Label htmlFor="name">Name</Label>
-                                <Input
-                                    id="name"
-                                    type="text"
-                                    required
-                                    autoFocus
-                                    tabIndex={1}
-                                    autoComplete="name"
-                                    name="name"
-                                    placeholder="Full name"
-                                />
-                                <InputError
-                                    message={errors.name}
-                                    className="mt-2"
-                                />
-                            </div>
-
-                            <div className="grid gap-2">
-                                <Label htmlFor="email">Email address</Label>
-                                <Input
-                                    id="email"
-                                    type="email"
-                                    required
-                                    tabIndex={2}
-                                    autoComplete="email"
-                                    name="email"
-                                    placeholder="email@example.com"
-                                />
-                                <InputError message={errors.email} />
-                            </div>
-
-                            <div className="grid gap-2">
-                                <Label htmlFor="password">Password</Label>
-                                <Input
-                                    id="password"
-                                    type="password"
-                                    required
-                                    tabIndex={3}
-                                    autoComplete="new-password"
-                                    name="password"
-                                    placeholder="Password"
-                                />
-                                <InputError message={errors.password} />
-                            </div>
-
-                            <div className="grid gap-2">
-                                <Label htmlFor="password_confirmation">
-                                    Confirm password
-                                </Label>
-                                <Input
-                                    id="password_confirmation"
-                                    type="password"
-                                    required
-                                    tabIndex={4}
-                                    autoComplete="new-password"
-                                    name="password_confirmation"
-                                    placeholder="Confirm password"
-                                />
-                                <InputError
-                                    message={errors.password_confirmation}
-                                />
-                            </div>
-
-                            <Button
-                                type="submit"
-                                className="mt-2 w-full"
-                                tabIndex={5}
-                                data-test="register-user-button"
-                            >
-                                {processing && <Spinner />}
-                                Create account
-                            </Button>
+                        <div>
+                            <label htmlFor="name" className="block text-dark text-sm font-medium mb-1">
+                                お名前
+                            </label>
+                            <input
+                                id="name"
+                                type="text"
+                                name="name"
+                                required
+                                autoFocus
+                                autoComplete="name"
+                                className="w-full border border-border rounded px-3 py-2 bg-white text-dark"
+                            />
+                            <InputError message={errors.name} />
                         </div>
-
-                        <div className="text-center text-sm text-muted-foreground">
-                            Already have an account?{' '}
-                            <TextLink href={login()} tabIndex={6}>
-                                Log in
+                        <div>
+                            <label htmlFor="email" className="block text-dark text-sm font-medium mb-1">
+                                メールアドレス
+                            </label>
+                            <input
+                                id="email"
+                                type="email"
+                                name="email"
+                                required
+                                autoComplete="email"
+                                className="w-full border border-border rounded px-3 py-2 bg-white text-dark"
+                            />
+                            <InputError message={errors.email} />
+                        </div>
+                        <div>
+                            <label htmlFor="password" className="block text-dark text-sm font-medium mb-1">
+                                パスワード
+                            </label>
+                            <input
+                                id="password"
+                                type="password"
+                                name="password"
+                                required
+                                autoComplete="new-password"
+                                className="w-full border border-border rounded px-3 py-2 bg-white text-dark"
+                            />
+                            <InputError message={errors.password} />
+                        </div>
+                        <div>
+                            <label htmlFor="password_confirmation" className="block text-dark text-sm font-medium mb-1">
+                                パスワード（確認）
+                            </label>
+                            <input
+                                id="password_confirmation"
+                                type="password"
+                                name="password_confirmation"
+                                required
+                                autoComplete="new-password"
+                                className="w-full border border-border rounded px-3 py-2 bg-white text-dark"
+                            />
+                            <InputError message={errors.password_confirmation} />
+                        </div>
+                        <button
+                            type="submit"
+                            disabled={processing}
+                            className="w-full bg-[#ED0000] text-white font-semibold py-3 px-6 rounded hover:opacity-90 disabled:opacity-70 flex items-center justify-center gap-2"
+                        >
+                            {processing && <Spinner />}
+                            新規登録
+                        </button>
+                        <p className="text-center text-sm text-muted-foreground">
+                            すでにアカウントをお持ちの方は{' '}
+                            <TextLink href={login()} className="text-purple">
+                                ログイン
                             </TextLink>
-                        </div>
+                        </p>
                     </>
                 )}
             </Form>
-        </AuthLayout>
+        </SkyCaptainAuthCard>
     );
 }
