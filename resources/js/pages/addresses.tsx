@@ -1,5 +1,6 @@
 import { Head, Link, router } from '@inertiajs/react';
 import { useState } from 'react';
+import EcommerceLayout from '@/layouts/ecommerce-layout';
 
 export type Address = {
     id: string;
@@ -124,7 +125,7 @@ export default function Addresses({ fromCheckout, checkoutReturnUrl = '/checkout
     };
 
     return (
-        <>
+        <EcommerceLayout>
             <Head>
                 <title>お届け先住所 | 天空隊長</title>
             </Head>
@@ -316,6 +317,6 @@ export default function Addresses({ fromCheckout, checkoutReturnUrl = '/checkout
                     )}
                 </div>
             </div>
-        </>
+        </EcommerceLayout>
     );
 }

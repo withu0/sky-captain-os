@@ -1,4 +1,5 @@
 import { Head, Link } from '@inertiajs/react';
+import EcommerceLayout from '@/layouts/ecommerce-layout';
 
 type OrderStatus = 'preparing' | 'shipped';
 type PurchaseType = 'subscription' | 'normal';
@@ -56,11 +57,11 @@ const MOCK_ORDERS: Order[] = [
 
 export default function PurchaseHistory() {
     return (
-        <>
+        <EcommerceLayout>
             <Head>
                 <title>購入履歴 | 天空隊長</title>
             </Head>
-            <div className="min-h-screen bg-white">
+            <div className="bg-white">
                 <div className="max-w-[1000px] mx-auto px-4 md:px-8 py-8 md:py-12">
                     <h1 className="text-dark text-xl md:text-2xl font-bold mb-6">購入履歴</h1>
 
@@ -141,6 +142,6 @@ export default function PurchaseHistory() {
                     </div>
                 </div>
             </div>
-        </>
+        </EcommerceLayout>
     );
 }

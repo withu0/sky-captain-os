@@ -1,36 +1,61 @@
 import { Head, Link } from '@inertiajs/react';
+import EcommerceLayout from '@/layouts/ecommerce-layout';
 
 export default function OrderComplete({ orderNumber = '00000000' }: { orderNumber?: string }) {
     return (
-        <>
+        <EcommerceLayout>
             <Head>
                 <title>購入完了 | 天空隊長</title>
             </Head>
-            <div className="min-h-screen bg-white">
-                <div className="max-w-[1000px] mx-auto px-4 md:px-8 py-8 md:py-12">
-                    <div className="bg-white border border-border rounded-lg shadow-sm p-6 md:p-10 max-w-xl mx-auto">
-                        <h1 className="text-dark text-xl md:text-2xl font-bold mb-2">ご注文完了</h1>
-                        <div className="h-px bg-border mb-8 w-full max-w-md" />
-                        <div className="flex justify-center mb-6">
-                            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-purple flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                    <polyline points="20 6 9 17 4 12" />
+            <div className="bg-white min-h-screen">
+                {/* Header Section */}
+                <div className="max-w-[1000px] mx-auto px-4 md:px-8 pt-10 pb-4 border-b border-border">
+                    <h1 className="text-dark text-2xl font-medium opacity-80">ご注文完了</h1>
+                </div>
+
+                {/* Main Content */}
+                <div className="max-w-[1000px] mx-auto px-4 md:px-8 py-10 md:py-20">
+                    <div className="flex flex-col items-center gap-10 md:gap-20">
+                        <div className="flex flex-col items-center gap-5 w-full max-w-[300px]">
+                            {/* Check Icon */}
+                            <div className="w-40 h-40 md:w-44 md:h-44 rounded-full bg-[#6B2759] flex items-center justify-center">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="120"
+                                    height="120"
+                                    viewBox="0 0 24 24"
+                                    fill="white"
+                                >
+                                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
                                 </svg>
                             </div>
+
+                            {/* Thank You Message */}
+                            <p className="text-[#6B2759] text-xl font-bold text-center w-full">
+                                ご注文ありがとうございました！
+                            </p>
+
+                            {/* Order Number */}
+                            <div className="flex items-center justify-center gap-2">
+                                <span className="text-dark text-xl opacity-80">注文番号：</span>
+                                <span className="text-dark text-xl font-mono opacity-80">{orderNumber}</span>
+                            </div>
                         </div>
-                        <p className="text-center text-xl md:text-2xl font-semibold mb-4" style={{ color: '#9B2D6B' }}>
-                            ご注文ありがとうございました!
-                        </p>
-                        <p className="text-dark text-center mb-6">
-                            注文番号: <span className="font-mono">{orderNumber}</span>
-                        </p>
-                        <p className="text-dark text-sm leading-relaxed text-center mb-8">
-                            ご注文ありがとうございます! 注文内容が記載された確認メールを送信しました。商品が発送されるまでしばらくお待ちください。
-                        </p>
+
+                        {/* Order Confirmation Message */}
+                        <div className="w-full max-w-[1000px]">
+                            <p className="text-dark text-sm md:text-base leading-relaxed text-center opacity-80">
+                                ご注文ありがとうございます！<br className="hidden md:block" />
+                                注文内容が記載された確認メールを送信しました。<br className="hidden md:block" />
+                                商品が発送されるまでしばらくお待ちください。
+                            </p>
+                        </div>
+
+                        {/* Button */}
                         <div className="flex justify-center">
                             <Link
                                 href="/"
-                                className="inline-flex items-center justify-center bg-gold text-white font-semibold py-3 px-8 rounded-lg hover:opacity-90"
+                                className="inline-flex items-center justify-center bg-[#DCC364] text-white font-medium py-3 px-10 rounded hover:opacity-90 text-base"
                             >
                                 トップページへ
                             </Link>
@@ -38,6 +63,6 @@ export default function OrderComplete({ orderNumber = '00000000' }: { orderNumbe
                     </div>
                 </div>
             </div>
-        </>
+        </EcommerceLayout>
     );
 }

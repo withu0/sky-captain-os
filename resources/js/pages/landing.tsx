@@ -1,6 +1,7 @@
 import { Head, Link } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 import { ArrowRight } from '@/components/icon/ArrowRight';
+import EcommerceLayout from '@/layouts/ecommerce-layout';
 
 export default function Landing() {
     const [count, setCount] = useState(8);
@@ -23,12 +24,12 @@ export default function Landing() {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
     return (
-        <>
+        <EcommerceLayout>
             <Head>
                 <title>お酒を飲む前後の二日酔い対策サプリなら天空隊長 | てんくうたいちょー</title>
                 <meta name="description" content="天空隊長（てんくうたいちょー）は、アルコール摂取の前後に飲むことで翌日の二日酔いを大幅に軽減するサプリです。また日本国内初、NMN（美容成分）を配合しておりますので、飲んだ後の美しさにもこだわりを持っています。多くの方に飲みやすいようにフレーバーや味はラムネ味となっており、飲んだ後も後味が残らない美味しくて飲みやすいサプリとなっています。" />
             </Head>
-            <div className="min-h-screen bg-white relative">
+            <div className="bg-white relative">
                 {/* Hero Section - 3 Column Layout */}
                 <section className="relative w-full pt-8 pb-12 px-4 md:px-8 lg:px-16">
                     <div className="max-w-[1000px] mx-auto relative">
@@ -619,6 +620,6 @@ export default function Landing() {
                     </div>
                 </section>
             </div>
-        </>
+        </EcommerceLayout>
     );
 }

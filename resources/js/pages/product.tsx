@@ -1,5 +1,6 @@
 import { Head, Link } from '@inertiajs/react';
 import { useState } from 'react';
+import EcommerceLayout from '@/layouts/ecommerce-layout';
 
 const PRICE_MAP: Record<string, { subTotal: number; subPerBag: number; normalTotal: number; normalPerBag: number }> = {
     '5': { subTotal: 1212, subPerBag: 242, normalTotal: 1515, normalPerBag: 305 },
@@ -34,7 +35,7 @@ export default function Product({ variant = '5' }: { variant: string }) {
     );
 
     return (
-        <>
+        <EcommerceLayout>
             <Head>
                 <title>購入画面 | 天空隊長</title>
                 <meta name="description" content="天空隊長のご購入はこちら。6ヶ月サブスク購入で20%OFF。" />
@@ -44,14 +45,17 @@ export default function Product({ variant = '5' }: { variant: string }) {
                 {/* Top Section - Product Info */}
                 <div className="flex flex-row justify-between items-start gap-[42px] w-[999px] h-[315px] mx-auto mt-[60px]">
                     {/* Product Image */}
-                    <div className="box-border flex flex-col justify-center items-center p-[40px] gap-[10px] w-[440px] h-[315px] bg-white border border-[#E1E1E1]">
+                    <div className="box-border flex flex-col justify-center items-center p-[40px] gap-[10px] w-[440px] h-[315px] bg-white">
                         <div className="w-[322.37px] h-[151.7px] relative">
                             <div
                                 className="absolute w-[322.37px] h-[151.7px] bg-cover bg-center"
                                 style={{ backgroundImage: 'url(/images/5.png)' }}
                             />
-                            <div className="absolute w-[321.54px] h-[151.7px] bg-[rgba(217,217,217,0.6)]" />
-                            <div className="absolute w-[160px] h-[48px] left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 font-inter font-semibold text-[40px] leading-[48px] text-[#DCC364] flex items-center justify-center">
+                            {/* Rectangle 37 - Figma: 321.54×151.7, rgba(217,217,217,0.6), border 1px #000 */}
+                            <div
+                                className="absolute w-[160px] h-[48px] top-1/2 -translate-y-1/2 font-[Inter] font-semibold text-[40px] leading-[48px] text-[#DCC364] flex items-center justify-center"
+                                style={{ left: 'calc(50% - 160px/2 - 0.5px)' }}
+                            >
                                 商品画像
                             </div>
                         </div>
@@ -152,8 +156,10 @@ export default function Product({ variant = '5' }: { variant: string }) {
                                     className="absolute w-[322.37px] h-[151.7px] bg-cover bg-center"
                                     style={{ backgroundImage: 'url(/images/5.png)' }}
                                 />
-                                <div className="absolute w-[321.54px] h-[151.7px] bg-[rgba(217,217,217,0.6)]" />
-                                <div className="absolute w-[160px] h-[48px] left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 font-inter font-semibold text-[40px] leading-[48px] text-[#DCC364] flex items-center justify-center">
+                                <div
+                                    className="absolute w-[160px] h-[48px] top-1/2 -translate-y-1/2 font-[Inter] font-semibold text-[40px] leading-[48px] text-[#DCC364] flex items-center justify-center"
+                                    style={{ left: 'calc(50% - 160px/2 - 0.5px)' }}
+                                >
                                     商品画像
                                 </div>
                             </div>
@@ -287,6 +293,6 @@ export default function Product({ variant = '5' }: { variant: string }) {
                     </div>
                 </div>
             </div>
-        </>
+        </EcommerceLayout>
     );
 }

@@ -1,5 +1,6 @@
 import { Head, Link, router } from '@inertiajs/react';
 import { useState } from 'react';
+import EcommerceLayout from '@/layouts/ecommerce-layout';
 
 const PRICE_MAP: Record<string, { subTotal: number; normalTotal: number }> = {
     '5': { subTotal: 1212, normalTotal: 1515 },
@@ -72,16 +73,14 @@ export default function Checkout({
 
     const paymentMethods = [
         { id: 'credit', label: 'クレジットカード' },
-        { id: 'bank', label: '銀行振込' },
-        { id: 'convenience', label: 'コンビニ決済' },
     ];
 
     return (
-        <>
+        <EcommerceLayout>
             <Head>
                 <title>購入手続き | 天空隊長</title>
             </Head>
-            <div className="min-h-screen bg-[#F8F8F8]">
+            <div className="bg-[#F8F8F8]">
                 <div className="max-w-[1200px] mx-auto px-4">
                     {/* Header */}
                     <div className="flex flex-col items-start pt-10 pb-5 gap-10 border-b border-[#E1E1E1]">
@@ -173,15 +172,19 @@ export default function Checkout({
                                             {paymentMethods.map((method) => (
                                                 <label
                                                     key={method.id}
-                                                    className={`flex items-center p-4 gap-3 border-2 rounded cursor-pointer transition-colors ${selectedPayment === method.id
-                                                            ? 'border-[#DCC364] bg-[#F8F8F8]'
-                                                            : 'border-[#D9D9D9] bg-white hover:border-[#B3B3B3]'
-                                                        }`}
+                                                    className={`group flex items-center p-4 gap-3 border-2 rounded cursor-pointer transition-colors ${
+                                                        selectedPayment === method.id
+                                                            ? 'border-[#38BDF8] bg-sky-50/30'
+                                                            : 'border-[#D1D1D1] bg-white hover:border-[#38BDF8] hover:bg-sky-50/30'
+                                                    }`}
                                                 >
-                                                    <div className={`flex justify-center items-center w-8 h-8 rounded-full border-2 ${selectedPayment === method.id
-                                                            ? 'border-[#DCC364] bg-[#DCC364]'
-                                                            : 'border-[#B3B3B3] bg-white'
-                                                        }`}>
+                                                    <div
+                                                        className={`flex justify-center items-center w-8 h-8 rounded-full border-2 transition-colors ${
+                                                            selectedPayment === method.id
+                                                                ? 'border-[#0EA5E9] bg-[#0EA5E9]'
+                                                                : 'border-[#B3B3B3] bg-white group-hover:border-[#38BDF8]'
+                                                        }`}
+                                                    >
                                                         {selectedPayment === method.id && (
                                                             <div className="w-3 h-3 rounded-full bg-white" />
                                                         )}
@@ -197,7 +200,13 @@ export default function Checkout({
                                                         }}
                                                         className="sr-only"
                                                     />
-                                                    <span className="text-[#333333] font-medium text-base">
+                                                    <span
+                                                        className={`font-medium text-base transition-colors ${
+                                                            selectedPayment === method.id
+                                                                ? 'text-[#0EA5E9]'
+                                                                : 'text-[#333333] group-hover:text-[#38BDF8]'
+                                                        }`}
+                                                    >
                                                         {method.label}
                                                     </span>
                                                 </label>
@@ -277,6 +286,6 @@ export default function Checkout({
                     </div>
                 </div>
             </div>
-        </>
+        </EcommerceLayout>
     );
 }

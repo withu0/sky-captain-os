@@ -1,5 +1,6 @@
 import { Head, Link } from '@inertiajs/react';
 import { useState } from 'react';
+import EcommerceLayout from '@/layouts/ecommerce-layout';
 
 type CartItem = {
     id: string;
@@ -31,11 +32,11 @@ export default function Cart() {
         : '';
 
     return (
-        <>
+        <EcommerceLayout>
             <Head>
                 <title>カート | 天空隊長</title>
             </Head>
-            <div className="min-h-screen bg-[#F8F8F8]">
+            <div className="bg-[#F8F8F8]">
                 <div className="max-w-[1200px] mx-auto px-4 md:px-8 py-0">
                     {/* Header */}
                     <div className="border-b border-[#E1E1E1] py-10 px-[100px]">
@@ -197,6 +198,6 @@ export default function Cart() {
                     </div>
                 </div>
             </div>
-        </>
+        </EcommerceLayout>
     );
 }
