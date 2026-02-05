@@ -1,0 +1,37 @@
+# Deploy workflow: runs deploy.sh on the server via SSH.
+#
+# Required secrets (Settings → Secrets and variables → Actions):
+#   DEPLOY_HOST     - e.g. 123.45.67.89 or deploy.example.com
+#   DEPLOY_USER     - e.g. forge or ubuntu
+#   DEPLOY_KEY      - Private SSH key for DEPLOY_USER@DEPLOY_HOST
+#
+# Optional:
+#   DEPLOY_PATH    - Path on server, e.g. /var/www/sky-captain-os (default: from repo)
+#
+# Trigger: push to main, or "Run workflow" manually.
+
+name: deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          script: |
+            set -e
+            DEPLOY_PATH="${{ secrets.DEPLOY_PATH }}"
+            if [ -z "$DEPLOY_PATH" ]; then DEPLOY_PATH="$HOME/sky-captain-os"; fi
+            cd "$DEPLOY_PATH"
+            git pull
+            chmod +x deploy.sh
+            ./deploy.sh

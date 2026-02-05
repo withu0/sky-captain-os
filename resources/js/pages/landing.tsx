@@ -1,7 +1,8 @@
-import { Head } from '@inertiajs/react';
+import { SkyCaptainHeadbar } from '@/components/sky-captain-headbar';
+import { Head, Link } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
-import { AmazonIcon } from '@/components/icon/AmazonIcon';
 import { ArrowRight } from '@/components/icon/ArrowRight';
+import { purchase } from '@/routes';
 
 export default function Landing() {
     const [count, setCount] = useState(8);
@@ -30,6 +31,7 @@ export default function Landing() {
                 <meta name="description" content="天空隊長（てんくうたいちょー）は、アルコール摂取の前後に飲むことで翌日の二日酔いを大幅に軽減するサプリです。また日本国内初、NMN（美容成分）を配合しておりますので、飲んだ後の美しさにもこだわりを持っています。多くの方に飲みやすいようにフレーバーや味はラムネ味となっており、飲んだ後も後味が残らない美味しくて飲みやすいサプリとなっています。" />
             </Head>
             <div className="min-h-screen bg-white relative">
+                <SkyCaptainHeadbar />
                 {/* Hero Section - 3 Column Layout */}
                 <section className="relative w-full pt-8 pb-12 px-4 md:px-8 lg:px-16">
                     <div className="max-w-[1000px] mx-auto relative">
@@ -37,14 +39,18 @@ export default function Landing() {
                             {/* Left Column - Product Introduction */}
                             <div className="text-purple text-center md:w-fit w-full">
                                 <div className="text-center">
-                                    <div className="text-sm md:text-[18px] text-[15pxs font-normal">
-                                        明日も美しく 空を馳せる
-                                        <span
-                                            className="stroke-1 text-sm md:text-base underline -underline-offset-3 decoration-gold"
-                                            style={{ textDecorationThickness: '5px', fontWeight: 600 }}
-                                        >
-                                            「お酒好きのおとも」
-                                        </span>
+                                    <div
+                                        style={{
+                                            fontFamily: 'Noto Sans JP, sans-serif',
+                                            fontWeight: 400,
+                                            fontStyle: 'normal',
+                                            fontSize: '16px',
+                                            lineHeight: '100%',
+                                            letterSpacing: '0.04em',
+                                        }}
+                                        className="text-[#231C1D]"
+                                    >
+                                        明日も美しく 空を馳せる「お酒好きのおとも」！
                                     </div>
                                     <h1 className="text-[69px] md:text-[99px] font-bold leading-none" style={{ fontFamily: 'var(--font-mplus2)' }}>
                                         天空隊長
@@ -181,11 +187,10 @@ export default function Landing() {
                                     <span className="text-[32px]">380</span>
                                     <span className="text-[20px]">円</span>
                                 </div>
-                                <a href="https://www.amazon.co.jp/dp/B0G1BYR97V/" target="_blank" rel="noopener noreferrer" className="inline-flex flex-row flex-nowrap items-center justify-center gap-1 bg-[#FFF8F8] border border-[#ED0000] rounded-full px-4 py-2 cursor-pointer whitespace-nowrap">
-                                    <span className="shrink-0"><AmazonIcon width={20} height={20} /></span>
-                                    <span className="text-[#ED0000] text-base">Amazonで購入する</span>
+                                <Link href={purchase()} className="inline-flex flex-row flex-nowrap items-center justify-center gap-1 bg-[#FFF8F8] border border-[#ED0000] rounded-full px-4 py-2 cursor-pointer whitespace-nowrap">
+                                    <span className="text-[#ED0000] text-base">購入する</span>
                                     <span className="shrink-0"><ArrowRight color="#ED0000" /></span>
-                                </a>
+                                </Link>
                             </div>
 
                             {/* Pricing Card 2 - 10袋 */}
@@ -223,11 +228,10 @@ export default function Landing() {
                                     <span className="text-[32px]">380</span>
                                     <span className="text-[20px]">円</span>
                                 </div>
-                                <a href="https://www.amazon.co.jp/dp/B0G1BLJVLV/" target="_blank" rel="noopener noreferrer" className="inline-flex flex-row flex-nowrap items-center justify-center gap-1 bg-[#FFF8F8] border border-[#ED0000] rounded-full px-4 py-2 cursor-pointer whitespace-nowrap">
-                                    <span className="shrink-0"><AmazonIcon width={20} height={20} /></span>
-                                    <span className="text-[#ED0000] text-base">Amazonで購入する</span>
+                                <Link href={purchase()} className="inline-flex flex-row flex-nowrap items-center justify-center gap-1 bg-[#FFF8F8] border border-[#ED0000] rounded-full px-4 py-2 cursor-pointer whitespace-nowrap">
+                                    <span className="text-[#ED0000] text-base">購入する</span>
                                     <span className="shrink-0"><ArrowRight color="#ED0000" /></span>
-                                </a>
+                                </Link>
                             </div>
 
                             {/* Pricing Card 3 - 20袋 */}
@@ -265,11 +269,10 @@ export default function Landing() {
                                     <span className="text-[32px]">320</span>
                                     <span className="text-[20px]">円</span>
                                 </div>
-                                <a href="https://www.amazon.co.jp/dp/B0G1BXPNBG/" target="_blank" rel="noopener noreferrer" className="inline-flex flex-row flex-nowrap items-center justify-center gap-1 bg-[#FFF8F8] border border-[#ED0000] rounded-full px-4 py-2 cursor-pointer whitespace-nowrap">
-                                    <span className="shrink-0"><AmazonIcon width={20} height={20} /></span>
-                                    <span className="text-[#ED0000] text-base">Amazonで購入する</span>
+                                <Link href={purchase()} className="inline-flex flex-row flex-nowrap items-center justify-center gap-1 bg-[#FFF8F8] border border-[#ED0000] rounded-full px-4 py-2 cursor-pointer whitespace-nowrap">
+                                    <span className="text-[#ED0000] text-base">購入する</span>
                                     <span className="shrink-0"><ArrowRight color="#ED0000" /></span>
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -306,9 +309,8 @@ export default function Landing() {
                                         alt="アミノ酸"
                                         className="w-40 h-28 md:w-60 md:h-42 object-cover"
                                     />
-                                    <div className="text-black text-[13px] md:text-base leading-relaxed max-w-md">
-                                        お酒を飲む前にしっかりケアしたい方のために、必須アミノ酸を含む９種類のアミノ酸とNMN（美容成分）をバランスよく配合。<br />
-                                        飲んだ後もスッキリと朝を迎えたい、そんなニーズに応えるこだわりの設計です。
+                                    <div className="text-[#231C1D] text-[13px] md:text-base leading-relaxed max-w-md">
+                                        お酒を飲む前にしっかりケアしたい方のために、必須アミノ酸を含む９種類のアミノ酸とNMN（美容成分）をバランスよく配合しました。しました。
                                     </div>
                                 </div>
                             </div>
@@ -335,7 +337,7 @@ export default function Landing() {
                                         alt="ラムネ風味"
                                         className="w-40 h-40 md:w-60 md:h-51 object-cover"
                                     />
-                                    <div className="text-black text-[13px] md:text-base leading-relaxed max-w-md">
+                                    <div className="text-[#231C1D] text-[13px] md:text-base leading-relaxed max-w-md">
                                         クセのない爽やかなラムネ風味で飲みやすく、水にサッと溶ける顆粒タイプなので気軽に飲めます。お酒の前の新習慣としておすすめです。
                                     </div>
                                 </div>
@@ -363,7 +365,7 @@ export default function Landing() {
                                         alt="水無し摂取"
                                         className="w-36 h-44 md:w-43 md:h-50 object-cover"
                                     />
-                                    <div className="text-black text-[13px] md:text-base leading-relaxed max-w-md">
+                                    <div className="text-[#231C1D] text-[13px] md:text-base leading-relaxed max-w-md">
                                         天空隊長は飲みやすい顆粒タイプで作られていますので、水があるとき、ないときどちらでも気軽に摂取いただけます。
                                     </div>
                                 </div>
@@ -391,7 +393,7 @@ export default function Landing() {
                                         alt="NMN配合"
                                         className="w-40 h-44 md:w-60 md:h-55 object-cover"
                                     />
-                                    <div className="text-black text-[13px] md:text-base leading-relaxed max-w-md">
+                                    <div className="text-[#231C1D] text-[13px] md:text-base leading-relaxed max-w-md">
                                         天空隊長は二日酔いサプリとは日本初となる美容成分のNMNを配合しています。そのため、飲み過ぎた日も少しだけお酒を飲んだ日も天空隊長を事前に摂取しておくことで、明日の美容を保つことに役立ちます。
                                     </div>
                                 </div>
@@ -436,11 +438,10 @@ export default function Landing() {
                                     <span className="text-[24px] md:text-[32px]">380</span>
                                     <span className="text-[16px] md:text-[20px]">円</span>
                                 </div>
-                                <a href="https://www.amazon.co.jp/dp/B0G1BYR97V/" target="_blank" rel="noopener noreferrer" className="inline-flex flex-row flex-nowrap items-center justify-center gap-1 bg-[#FFF8F8] border border-[#ED0000] rounded-full px-3 py-1.5 md:px-4 md:py-2 cursor-pointer whitespace-nowrap">
-                                    <span className="shrink-0"><AmazonIcon width={20} height={20} /></span>
-                                    <span className="text-[#ED0000] text-sm md:text-base">Amazonで購入する</span>
+                                <Link href={purchase()} className="inline-flex flex-row flex-nowrap items-center justify-center gap-1 bg-[#FFF8F8] border border-[#ED0000] rounded-full px-3 py-1.5 md:px-4 md:py-2 cursor-pointer whitespace-nowrap">
+                                    <span className="text-[#ED0000] text-sm md:text-base">購入する</span>
                                     <span className="shrink-0"><ArrowRight color="#ED0000" /></span>
-                                </a>
+                                </Link>
                             </div>
 
                             {/* Pricing Card 2 - 10袋 */}
@@ -478,11 +479,10 @@ export default function Landing() {
                                     <span className="text-[24px] md:text-[32px]">380</span>
                                     <span className="text-[16px] md:text-[20px]">円</span>
                                 </div>
-                                <a href="https://www.amazon.co.jp/dp/B0G1BLJVLV/" target="_blank" rel="noopener noreferrer" className="inline-flex flex-row flex-nowrap items-center justify-center gap-1 bg-[#FFF8F8] border border-[#ED0000] rounded-full px-3 py-1.5 md:px-4 md:py-2 cursor-pointer whitespace-nowrap">
-                                    <span className="shrink-0"><AmazonIcon width={20} height={20} /></span>
-                                    <span className="text-[#ED0000] text-sm md:text-base">Amazonで購入する</span>
+                                <Link href={purchase()} className="inline-flex flex-row flex-nowrap items-center justify-center gap-1 bg-[#FFF8F8] border border-[#ED0000] rounded-full px-3 py-1.5 md:px-4 md:py-2 cursor-pointer whitespace-nowrap">
+                                    <span className="text-[#ED0000] text-sm md:text-base">購入する</span>
                                     <span className="shrink-0"><ArrowRight color="#ED0000" /></span>
-                                </a>
+                                </Link>
                             </div>
 
                             {/* Pricing Card 3 - 20袋 */}
@@ -520,11 +520,10 @@ export default function Landing() {
                                     <span className="text-[24px] md:text-[32px]">320</span>
                                     <span className="text-[16px] md:text-[20px]">円</span>
                                 </div>
-                                <a href="https://www.amazon.co.jp/dp/B0G1BXPNBG/" target="_blank" rel="noopener noreferrer" className="inline-flex flex-row flex-nowrap items-center justify-center gap-1 bg-[#FFF8F8] border border-[#ED0000] rounded-full px-3 py-1.5 md:px-4 md:py-2 cursor-pointer whitespace-nowrap">
-                                    <span className="shrink-0"><AmazonIcon width={20} height={20} /></span>
-                                    <span className="text-[#ED0000] text-sm md:text-base">Amazonで購入する</span>
+                                <Link href={purchase()} className="inline-flex flex-row flex-nowrap items-center justify-center gap-1 bg-[#FFF8F8] border border-[#ED0000] rounded-full px-3 py-1.5 md:px-4 md:py-2 cursor-pointer whitespace-nowrap">
+                                    <span className="text-[#ED0000] text-sm md:text-base">購入する</span>
                                     <span className="shrink-0"><ArrowRight color="#ED0000" /></span>
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>
