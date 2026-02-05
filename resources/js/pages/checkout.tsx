@@ -44,6 +44,7 @@ export default function Checkout({
     const [selectedId, setSelectedId] = useState<string | null>(selectedAddressId);
     const [displayAddress, setDisplayAddress] = useState('');
     const [paymentSelected, setPaymentSelected] = useState(false);
+    const [selectedPayment, setSelectedPayment] = useState<string>('');
 
     const prices = PRICE_MAP[variant] ?? PRICE_MAP['5'];
     const price = purchaseType === 'subscription' ? prices.subTotal : prices.normalTotal;
@@ -67,158 +68,212 @@ export default function Checkout({
     };
 
     const canProceedStep1 = selectedAddress != null;
+    const canProceedStep2 = paymentSelected;
+
+    const paymentMethods = [
+        { id: 'credit', label: 'クレジットカード' },
+        { id: 'bank', label: '銀行振込' },
+        { id: 'convenience', label: 'コンビニ決済' },
+    ];
 
     return (
         <>
             <Head>
                 <title>購入手続き | 天空隊長</title>
             </Head>
-            <div className="min-h-screen bg-white">
-                <div className="max-w-[1000px] mx-auto px-4 md:px-8 py-8 md:py-12">
-                    <h1 className="text-dark text-xl md:text-2xl font-bold mb-6">購入手続き</h1>
-
-                    <div className="border border-[#E0E8F0] rounded-lg bg-white p-6 md:p-8 space-y-8">
-                        <h2 className="text-dark text-lg font-semibold pb-2 border-b border-border">
+            <div className="min-h-screen bg-[#F8F8F8]">
+                <div className="max-w-[1200px] mx-auto px-4">
+                    {/* Header */}
+                    <div className="flex flex-col items-start pt-10 pb-5 gap-10 border-b border-[#E1E1E1]">
+                        <h1 className="text-[#231C1D] text-2xl font-medium opacity-80">
                             購入手続き
-                        </h2>
-
-                        <section>
-                            <h3 className="text-dark font-bold mb-1">1.お届け先</h3>
-                            {step === 1 ? (
-                                <>
-                                    <p className="text-dark text-sm text-muted-foreground mb-2">
-                                        お届け先住所を選択するか、新しい住所を追加してください。
-                                    </p>
-                                    <Link
-                                        href={addressesUrl}
-                                        className="inline-flex items-center gap-1 text-purple font-semibold mb-4 hover:underline"
-                                    >
-                                        + 新しい住所
-                                    </Link>
-                                    {addresses.length > 0 ? (
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                            {addresses.map((addr) => (
-                                                <button
-                                                    key={addr.id}
-                                                    type="button"
-                                                    onClick={() => setSelectedId(addr.id)}
-                                                    className={`text-left border-2 rounded-lg p-4 transition-colors ${
-                                                        (selectedId ?? selectedAddressId) === addr.id
-                                                            ? 'border-teal-500 bg-teal-50/50'
-                                                            : 'border-border bg-white hover:border-teal-300'
-                                                    }`}
-                                                >
-                                                    <p className="text-dark font-medium">{addr.surname} {addr.givenName}</p>
-                                                    <p className="text-dark text-sm">{addr.phone}</p>
-                                                    <p className="text-dark text-sm">{addr.postal1}-{addr.postal2}</p>
-                                                    <p className="text-dark text-sm">{formatAddressLine(addr)}</p>
-                                                </button>
-                                            ))}
-                                        </div>
-                                    ) : (
-                                        <p className="text-muted-foreground text-sm mb-2">登録された住所がありません。</p>
-                                    )}
-                                </>
-                            ) : (
-                                <div className="flex flex-wrap items-center justify-between gap-2 py-2 border-b border-border">
-                                    <p className="text-dark">{displayAddress}</p>
-                                    <Link
-                                        href={addressesUrl}
-                                        className="text-blue-600 hover:underline text-sm font-medium"
-                                    >
-                                        変更
-                                    </Link>
-                                </div>
-                            )}
-                        </section>
-
-                        <section>
-                            <h3 className="text-dark font-bold mb-1">2.お支払い方法</h3>
-                            <p className="text-dark text-sm text-muted-foreground mb-3">
-                                お支払方法を下記より選択してください。
-                            </p>
-                            <label
-                                className={`flex items-center gap-3 p-3 rounded-lg border-2 cursor-pointer transition-colors ${
-                                    paymentSelected
-                                        ? 'border-teal-500 bg-teal-50/50'
-                                        : 'border-border bg-white'
-                                }`}
-                            >
-                                <span
-                                    className={`flex-shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                                        paymentSelected
-                                            ? 'border-teal-500 bg-teal-500'
-                                            : 'border-border bg-white'
-                                    }`}
-                                >
-                                    {paymentSelected && (
-                                        <span className="w-2 h-2 rounded-full bg-white" />
-                                    )}
-                                </span>
-                                <input
-                                    type="radio"
-                                    name="payment"
-                                    checked={paymentSelected}
-                                    onChange={() => setPaymentSelected(true)}
-                                    className="sr-only"
-                                />
-                                <span className={paymentSelected ? 'text-teal-700 font-medium' : 'text-dark'}>
-                                    クレジットカード
-                                </span>
-                            </label>
-                            {paymentSelected && (
-                                <div className="mt-3 ml-8 p-4 rounded-lg border border-border bg-muted/30 text-sm text-dark space-y-1">
-                                    <p>VISA 末尾 0000</p>
-                                    <p>クレジットカード名義人: TARO YAMADA</p>
-                                    <p>有効期限: 01/2027</p>
-                                </div>
-                            )}
-                        </section>
-
-                        <section>
-                            <h3 className="text-dark font-bold mb-3">3.商品詳細</h3>
-                            <div className="flex gap-4 items-start p-4 border border-border rounded-lg">
-                                <img
-                                    src="/images/天空隊長.png"
-                                    alt={productName}
-                                    className="w-20 h-20 md:w-24 md:h-24 object-contain rounded border border-border flex-shrink-0"
-                                />
-                                <div className="min-w-0">
-                                    <p className="text-dark font-medium">{productName}</p>
-                                    <p className="text-dark text-lg font-semibold mt-1">
-                                        {price.toLocaleString()}円
-                                    </p>
-                                    <span
-                                        className={`inline-block mt-2 px-3 py-1 rounded text-sm border ${
-                                            purchaseType === 'subscription'
-                                                ? 'bg-gold/20 border-gold/50 text-dark'
-                                                : 'bg-red-50 border-red-200 text-red-800'
-                                        }`}
-                                    >
-                                        {purchaseType === 'subscription'
-                                            ? '6ヶ月定期購入'
-                                            : '通常購入'}
-                                    </span>
-                                </div>
-                            </div>
-                        </section>
-
-                        <div className="pt-4">
-                            <button
-                                type="button"
-                                onClick={handleNext}
-                                disabled={step === 1 && !canProceedStep1}
-                                className="w-full max-w-md mx-auto flex justify-center bg-gold text-white font-semibold py-3 px-8 rounded-lg hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
-                            >
-                                次へ
-                            </button>
-                        </div>
+                        </h1>
                     </div>
 
-                    <div className="mt-6">
-                        <Link href={`/product/${variant}`} className="text-purple font-medium hover:underline">
-                            ← 商品ページへ戻る
-                        </Link>
+                    <div className="py-8">
+                        <div className="flex flex-col items-start gap-8 max-w-[1000px] mx-auto">
+                            {/* Section 1: Delivery Address */}
+                            <section className="w-full bg-white p-5">
+                                <div className="flex flex-col gap-[18px]">
+                                    <h2 className="text-[#231C1D] text-xl font-normal">
+                                        1.お届け先
+                                    </h2>
+
+                                    <div className="flex flex-col gap-2">
+                                        {step === 1 ? (
+                                            <>
+                                                <p className="text-[#231C1D] text-sm">
+                                                    商品をお届けする住所を入力してください。
+                                                </p>
+                                                <div className="flex items-center gap-2.5">
+                                                    <Link
+                                                        href={addressesUrl}
+                                                        className="inline-flex items-center gap-1 text-[#006AFF] font-semibold text-sm hover:underline"
+                                                    >
+                                                        + 新しい住所
+                                                    </Link>
+                                                </div>
+                                                {addresses.length > 0 ? (
+                                                    <div className="mt-2">
+                                                        {addresses.map((addr) => (
+                                                            <button
+                                                                key={addr.id}
+                                                                type="button"
+                                                                onClick={() => setSelectedId(addr.id)}
+                                                                className={`w-full flex flex-col items-start p-4 gap-1 border-2 rounded transition-colors ${(selectedId ?? selectedAddressId) === addr.id
+                                                                        ? 'border-[#DCC364] bg-[#F8F8F8]'
+                                                                        : 'border-[#D9D9D9] bg-white hover:border-[#B3B3B3]'
+                                                                    }`}
+                                                            >
+                                                                <p className="text-[#231C1D] font-medium">
+                                                                    {addr.surname} {addr.givenName}
+                                                                </p>
+                                                                <p className="text-[#231C1D] text-sm">
+                                                                    {addr.phone}
+                                                                </p>
+                                                                <p className="text-[#231C1D] text-sm">
+                                                                    {addr.postal1}-{addr.postal2}
+                                                                </p>
+                                                                <p className="text-[#231C1D] text-sm">
+                                                                    {formatAddressLine(addr)}
+                                                                </p>
+                                                            </button>
+                                                        ))}
+                                                    </div>
+                                                ) : (
+                                                    <div className="flex items-center p-3 border-2 border-[#D9D9D9] rounded bg-white">
+                                                        <span className="text-[#231C1D]/30 text-sm">
+                                                            東京都〇〇区△△1-23-4
+                                                        </span>
+                                                    </div>
+                                                )}
+                                            </>
+                                        ) : (
+                                            <div className="flex items-center p-3 border-2 border-[#D9D9D9] rounded bg-white">
+                                                <p className="text-[#231C1D]">{displayAddress || '住所が選択されていません'}</p>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </section>
+
+                            {/* Section 2: Payment Method */}
+                            <section className="w-full bg-white p-5">
+                                <div className="flex flex-col gap-[18px]">
+                                    <h2 className="text-[#231C1D] text-xl font-normal">
+                                        2.お支払い方法
+                                    </h2>
+
+                                    <div className="flex flex-col gap-4">
+                                        <p className="text-[#231C1D] text-sm">
+                                            お支払方法を下記より選択してください。
+                                        </p>
+
+                                        <div className="flex flex-col gap-4">
+                                            {paymentMethods.map((method) => (
+                                                <label
+                                                    key={method.id}
+                                                    className={`flex items-center p-4 gap-3 border-2 rounded cursor-pointer transition-colors ${selectedPayment === method.id
+                                                            ? 'border-[#DCC364] bg-[#F8F8F8]'
+                                                            : 'border-[#D9D9D9] bg-white hover:border-[#B3B3B3]'
+                                                        }`}
+                                                >
+                                                    <div className={`flex justify-center items-center w-8 h-8 rounded-full border-2 ${selectedPayment === method.id
+                                                            ? 'border-[#DCC364] bg-[#DCC364]'
+                                                            : 'border-[#B3B3B3] bg-white'
+                                                        }`}>
+                                                        {selectedPayment === method.id && (
+                                                            <div className="w-3 h-3 rounded-full bg-white" />
+                                                        )}
+                                                    </div>
+                                                    <input
+                                                        type="radio"
+                                                        name="payment"
+                                                        value={method.id}
+                                                        checked={selectedPayment === method.id}
+                                                        onChange={(e) => {
+                                                            setSelectedPayment(e.target.value);
+                                                            setPaymentSelected(true);
+                                                        }}
+                                                        className="sr-only"
+                                                    />
+                                                    <span className="text-[#333333] font-medium text-base">
+                                                        {method.label}
+                                                    </span>
+                                                </label>
+                                            ))}
+                                        </div>
+
+                                        {selectedPayment === 'credit' && paymentSelected && (
+                                            <div className="ml-12 p-4 rounded border border-[#E1E1E1] bg-[#F8F8F8]/30 text-sm text-[#231C1D] space-y-1">
+                                                <p>VISA 末尾 0000</p>
+                                                <p>クレジットカード名義人: TARO YAMADA</p>
+                                                <p>有効期限: 01/2027</p>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </section>
+
+                            {/* Section 3: Product Details */}
+                            <section className="w-full bg-white p-5">
+                                <div className="flex flex-col gap-[18px]">
+                                    <h2 className="text-[#231C1D] text-xl font-normal">
+                                        3.商品詳細
+                                    </h2>
+
+                                    <div className="flex gap-[50px] items-start">
+                                        {/* Product Image */}
+                                        <div className="flex flex-col justify-center items-center p-10 border border-[#E1E1E1] bg-white">
+                                            <img
+                                                src="/images/5.png"
+                                                alt={productName}
+                                                className="w-[140px] h-[66px] object-contain"
+                                            />
+                                        </div>
+
+                                        {/* Product Info */}
+                                        <div className="flex flex-col gap-2 pt-2">
+                                            <p className="text-[#231C1D] font-medium">{productName}</p>
+                                            <p className="text-[#231C1D] text-lg font-semibold">
+                                                {price.toLocaleString()}円
+                                            </p>
+                                            <div className="flex justify-center items-center px-1.5 py-1 gap-2.5 bg-[rgba(220,195,100,0.08)] border border-[#DCC364]">
+                                                <span className="text-[#DCC364] font-medium text-xs">
+                                                    {purchaseType === 'subscription'
+                                                        ? '6ヶ月定期購入'
+                                                        : '通常購入'}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            {/* Next Button */}
+                            <div className="w-full">
+                                <button
+                                    type="button"
+                                    onClick={handleNext}
+                                    disabled={(step === 1 && !canProceedStep1) || (step === 2 && !canProceedStep2)}
+                                    className="w-full flex justify-center items-center py-3 px-10 gap-2.5 bg-[#DCC364] rounded hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
+                                >
+                                    <span className="text-white font-medium text-base">
+                                        次へ
+                                    </span>
+                                </button>
+                            </div>
+
+                            {/* Back Link */}
+                            <div className="w-full mt-6">
+                                <Link
+                                    href={`/product/${variant}`}
+                                    className="text-[#006AFF] font-medium hover:underline"
+                                >
+                                    ← 商品ページへ戻る
+                                </Link>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
