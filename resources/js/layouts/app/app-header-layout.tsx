@@ -1,6 +1,7 @@
 // File: resources/layouts/app/app-header-layout.tsx
 import type { SharedData } from '@/types';
 import { Link, usePage, router } from '@inertiajs/react';
+import { login, register, logout } from '@/routes';
 import React, { useState } from 'react';
 
 const Header = () => {
@@ -10,13 +11,13 @@ const Header = () => {
 
   const handleLogout = (e: React.MouseEvent) => {
     e.preventDefault();
-    router.post('/logout');
+    router.post(logout.url());
   };
 
   // Nav items shown when user is NOT logged in
   const guestNavItems = [
     {
-      href: '/auth/register',
+      href: register(),
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
@@ -25,7 +26,7 @@ const Header = () => {
       label: '新規会員登録',
     },
     {
-      href: '/auth/login',
+      href: login(),
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
@@ -99,7 +100,7 @@ const Header = () => {
           <div className="hidden md:flex items-end gap-8">
             {desktopNavItems.map(({ href, icon, label }) => (
               <Link
-                key={href}
+                key={`app_header_layout_menu_${href}`}
                 href={href}
                 className="flex flex-col items-center gap-1 text-gray-600 hover:text-red-600 no-underline transition-colors min-w-[4rem]"
               >
@@ -154,14 +155,14 @@ const Header = () => {
               {!user && (
                 <div className="grid grid-cols-2 gap-4 pb-4 border-b">
                   <Link
-                    href="/auth/register"
+                    href={register()}
                     className="bg-red-600 text-white py-2.5 text-center rounded text-sm no-underline"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     新規会員登録
                   </Link>
                   <Link
-                    href="/auth/login"
+                    href={login()}
                     className="bg-gray-100 text-gray-700 py-2.5 text-center rounded text-sm no-underline"
                     onClick={() => setIsMenuOpen(false)}
                   >
