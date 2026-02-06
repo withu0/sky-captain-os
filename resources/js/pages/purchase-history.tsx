@@ -1,7 +1,7 @@
 import AppLayout from '@/layouts/app-layout';
 import { purchase } from '@/routes';
 import { Head, Link } from '@inertiajs/react';
-import { ShoppingCart } from 'lucide-react';
+import { ChevronLeft, ShoppingCart } from 'lucide-react';
 
 type OrderItem = {
     id: string;
@@ -102,27 +102,40 @@ export default function PurchaseHistory() {
     return (
         <AppLayout sidebar={false} headerTitle="購入履歴">
             <Head title="購入履歴 | 天空隊長" />
-            <div className="mx-auto w-full max-w-[980px] px-4 py-8">
-                <h1 className="mb-6 text-[20px] font-bold text-[#231C1D]">
-                    購入履歴
-                </h1>
-                <div className="border border-[#D9D9D9] bg-white">
+            <div className="mx-auto w-full max-w-[980px] px-4 pt-4 pb-8">
+                <div className="flex items-center gap-3">
+                    <Link
+                        href={purchase()}
+                        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#D9D9D9] bg-white text-[#231C1D] hover:bg-[#F5F5F5]"
+                        aria-label="戻る"
+                    >
+                        <ChevronLeft className="size-5" />
+                    </Link>
+                    <h1 className="text-[20px] font-bold text-[#231C1D]">
+                        購入履歴
+                    </h1>
+                </div>
+                <hr className="mt-3 border-t border-[#D9D9D9]" />
+                <div className="mt-6 space-y-6">
                     {orders.map((order, idx) => (
-                        <div key={order.id}>
-                            <div className="bg-[#F6F6F6] px-5 py-3 border-b border-[#BDBDBD] flex items-start justify-between">
+                        <div
+                            key={order.id}
+                            className="border border-[#D9D9D9] bg-white"
+                        >
+                            <div className="bg-[#F6F6F6] px-5 py-1 border-b border-[#BDBDBD] flex items-start justify-between">
                                 <div>
-                                    <div className="text-[12px] text-[#231C1D]">
+                                    <div className="text-[14px] text-[#231C1D]">
                                         購入日
                                     </div>
-                                    <div className="text-[12px] text-[#231C1D] mt-1">
+                                    <div className="text-[14px] text-[#231C1D] mt-1">
                                         {order.purchasedAt}
                                     </div>
                                 </div>
                                 <div className="text-right">
-                                    <div className="text-[12px] text-[#231C1D]">
+                                    <div className="text-[14px] text-[#231C1D]">
                                         合計
                                     </div>
-                                    <div className="text-[12px] text-[#231C1D] mt-1">
+                                    <div className="text-[14px] text-[#231C1D] mt-1">
                                         {order.totalYen}
                                     </div>
                                 </div>
@@ -133,7 +146,7 @@ export default function PurchaseHistory() {
                                     {order.statusLine}
                                 </div>
 
-                                <div className="grid grid-cols-[140px_1fr_220px] gap-6 items-center">
+                                <div className="grid grid-cols-[180px_1fr_220px] gap-6 items-center">
                                     <PurchaseHistoryImage />
 
                                     <div className="space-y-2">
@@ -152,7 +165,7 @@ export default function PurchaseHistory() {
                                     <div className="flex flex-col items-end gap-2">
                                         <Link
                                             href={purchase()}
-                                            className="inline-flex items-center justify-center gap-2 h-10 px-4 text-[13px] font-medium rounded-sm bg-[#F2F2F2] text-[#666666] border border-[#CFCFCF] hover:bg-[#EDEDED] transition-colors"
+                                            className="inline-flex items-center justify-center gap-2 h-10 px-4 text-[13px] font-medium rounded-[3px] bg-[#F2F2F2] text-[#666666] border border-[#CFCFCF] hover:bg-[#EDEDED] transition-colors"
                                         >
                                             <ShoppingCart className="size-4" />
                                             もう一度購入する
@@ -168,10 +181,6 @@ export default function PurchaseHistory() {
                                     </div>
                                 </div>
                             </div>
-
-                            {idx !== orders.length - 1 ? (
-                                <div className="border-t border-[#D9D9D9]" />
-                            ) : null}
                         </div>
                     ))}
                 </div>

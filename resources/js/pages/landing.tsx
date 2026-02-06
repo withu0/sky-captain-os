@@ -8,16 +8,15 @@ export default function Landing() {
     const [count, setCount] = useState(8);
 
     useEffect(() => {
-        // adjust counts responsively
         function handleResize() {
             if (window.innerWidth >= 1280) {
-                setCount(16); // xl screens
+                setCount(16);
             } else if (window.innerWidth >= 1024) {
-                setCount(12); // lg screens
+                setCount(12);
             } else if (window.innerWidth >= 768) {
-                setCount(10); // md screens
+                setCount(10);
             } else {
-                setCount(8); // base
+                setCount(8);
             }
         }
         handleResize();
@@ -32,12 +31,10 @@ export default function Landing() {
             </Head>
             <div className="min-h-screen bg-white relative">
                 <SkyCaptainHeadbar />
-                {/* Hero Section - 3 Column Layout */}
                 <section className="relative w-full pt-8 pb-12 px-4 md:px-8 lg:px-16">
                     <div className="max-w-[1000px] mx-auto relative">
                         <div className="flex flex-col md:flex-row md:items-start md:justify-between justify-end items-end w-full gap-[42px]">
-                            {/* Left Column - Product Introduction */}
-                            <div className="text-purple text-center md:w-fit w-full">
+                            <div className="text-[#5e225e] text-center md:w-fit w-full">
                                 <div className="text-center">
                                     <div
                                         style={{
@@ -48,24 +45,26 @@ export default function Landing() {
                                             lineHeight: '100%',
                                             letterSpacing: '0.04em',
                                         }}
-                                        className="text-[#231C1D]"
                                     >
-                                        明日も美しく 空を馳せる「お酒好きのおとも」！
+                                        明日も美しく 空を馳せる{' '}
+                                        <span
+                                            className="text-sm md:text-base underline -underline-offset-3 decoration-[#D4AC4C]"
+                                            style={{ textDecorationThickness: 5, fontWeight: 600 }}
+                                        >
+                                            「お酒好きのおとも」
+                                        </span>
                                     </div>
-                                    <h1 className="text-[69px] md:text-[99px] font-bold leading-none" style={{ fontFamily: 'var(--font-mplus2)' }}>
+                                    <h1 className="text-[69px] md:text-[99px] font-bold leading-none mt-1 inline-block border-b-2 border-[#5e225e] pb-1" style={{ fontFamily: 'var(--font-mplus2)' }}>
                                         天空隊長
                                     </h1>
-                                    <div className="text-[10px] md:text-[13px] font-normal border-b-2 border-t border-purple py-1 mt-3 text-center" style={{ letterSpacing: "1.2em" }}>
+                                    <div className="text-[10px] md:text-[13px] font-normal py-1 mt-3 text-center" style={{ letterSpacing: "1.2em" }}>
                                         てんくうたいちょー
                                     </div>
                                 </div>
                                 <div className="space-y-8 mt-4  md:block hidden">
-                                    {/* Ingredient Circles */}
                                     <div className="items-center justify-center gap-3 md:gap-4">
                                         <img src="/images/天空隊長成分.png" alt="天空隊長成分" />
                                     </div>
-
-                                    {/* Product Specs */}
                                     <div className="text-dark text-base md:text-lg font-normal">
                                         内容量 <span className="text-[24px]">3</span>g
                                         <span className="px-2"> / </span>
@@ -74,9 +73,7 @@ export default function Landing() {
                                 </div>
                             </div>
 
-                            {/* Right Column - Features and Usage */}
                             <div className="flex flex-col lg:gap-12 gap-[23px] relative md:w-fit w-full">
-                                {/* Feature Badges */}
                                 <div className="flex flex-col gap-2 md:gap-3 text-right md:text-[28px] text-base items-end">
                                     <div className="bg-gold px-5 py-1 w-fit">
                                         サッととける顆粒タイプ
@@ -91,10 +88,7 @@ export default function Landing() {
                                 <div className="lg:hidden flex justify-end">
                                     <img src="/images/天空隊長成分-sp.png" alt="天空隊長成分-sp.png" />
                                 </div>
-
-                                {/* Usage Prompts and Icons */}
                                 <div className="flex gap-6 md:justify-end justify-center w-full">
-                                    {/* Usage Buttons */}
                                     <div className="w-[120px] flex flex-col items-center justify-center gap-4">
                                         <div className="text-white text-base font-semibold text-center bg-dark rounded-full px-3 py-0.5 w-full">
                                             飲む前に！
@@ -126,7 +120,6 @@ export default function Landing() {
                                 </div>
 
                                 <div className="absolute top-15 left-0 md:hidden block">
-                                    {/* 天空隊長-sp画像 */}
                                     <img
                                         src="/images/天空隊長-sp.png"
                                         alt="天空隊長"
@@ -137,7 +130,6 @@ export default function Landing() {
                         </div>
                         <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 items-center justify-center lg:block hidden">
                             <div className="relative">
-                                {/* 天空隊長画像 */}
                                 <img
                                     src="/images/天空隊長.png"
                                     alt="天空隊長"
@@ -148,11 +140,9 @@ export default function Landing() {
                     </div>
                 </section>
 
-                {/* Pricing Section - Horizontal Cards */}
                 <section className="w-full py-8 md:py-12 px-4 md:px-8 lg:px-16">
                     <div className="max-w-[1000px] mx-auto">
                         <div className="flex flex-col items-center md:flex-row justify-around gap-6 md:gap-10">
-                            {/* Pricing Card 1 - 5袋 */}
                             <div className="bg-white flex flex-col gap-4 w-fit">
                                 <div className="flex flex-col gap-2">
                                     <div className="flex items-end gap-1 ">
@@ -193,7 +183,6 @@ export default function Landing() {
                                 </Link>
                             </div>
 
-                            {/* Pricing Card 2 - 10袋 */}
                             <div className="bg-white flex flex-col gap-4 w-fit">
                                 <div className="flex flex-col gap-2">
                                     <div className="flex items-end gap-1 ">
@@ -234,7 +223,6 @@ export default function Landing() {
                                 </Link>
                             </div>
 
-                            {/* Pricing Card 3 - 20袋 */}
                             <div className="bg-white flex flex-col gap-4 w-fit">
                                 <div className="flex flex-col gap-2">
                                     <div className="flex items-end gap-1 ">
@@ -278,7 +266,6 @@ export default function Landing() {
                     </div>
                 </section>
 
-                {/* Features Section */}
                 <section className="relative w-full md:py-20 py-8 lg:px-16 px-4 md:px-8">
                     <div
                         className="absolute inset-0 w-full h-full bg-repeat pointer-events-none z-0 opacity-50 bg-[url('/images/pattern.jpg')]"
@@ -286,9 +273,7 @@ export default function Landing() {
                     />
                     <div className="max-w-[1000px] mx-auto relative z-10  shadow-[4px_4px_4px_3px_rgba(0,0,0,0.06)]">
                         <div className="md:space-y-16 space-y-8 bg-white md:py-10 py-5 md:px-[68px] px-4">
-                            {/* Feature 1 */}
                             <div className="flex flex-col items-center gap-4 md:gap-10">
-                                {/* Purple Banner with Diagonal Cut */}
                                 <div className="relative w-full flex justify-center items-center">
                                     <div
                                         className="h-[44px] md:h-[60px] lg:h-[60px] flex items-center justify-center px-2"
@@ -315,7 +300,6 @@ export default function Landing() {
                                 </div>
                             </div>
 
-                            {/* Feature 2 */}
                             <div className="flex flex-col items-center gap-4 md:gap-10">
                                 <div className="relative w-full">
                                     <div
@@ -343,7 +327,6 @@ export default function Landing() {
                                 </div>
                             </div>
 
-                            {/* Feature 3 */}
                             <div className="flex flex-col items-center gap-4 md:gap-10">
                                 <div className="relative w-full">
                                     <div
@@ -371,7 +354,6 @@ export default function Landing() {
                                 </div>
                             </div>
 
-                            {/* Feature 4 */}
                             <div className="flex flex-col items-center gap-4 md:gap-10">
                                 <div className="relative w-full">
                                     <div
@@ -403,7 +385,6 @@ export default function Landing() {
 
                     <div className="relative z-10 md:mt-20 mt-8">
                         <div className="flex flex-col items-center md:flex-row justify-around gap-6 md:gap-10 bg-white max-w-[1000px] mx-auto py-8 md:py-10 px-4 md:px-5  shadow-[4px_4px_4px_3px_rgba(0,0,0,0.06)]">
-                            {/* Pricing Card 1 - 5袋 */}
                             <div className="bg-white flex flex-col gap-3 md:gap-4 w-fit">
                                 <div className="flex flex-col gap-2">
                                     <div className="flex items-end gap-1">
@@ -444,7 +425,6 @@ export default function Landing() {
                                 </Link>
                             </div>
 
-                            {/* Pricing Card 2 - 10袋 */}
                             <div className="bg-white flex flex-col gap-3 md:gap-4">
                                 <div className="flex flex-col gap-2">
                                     <div className="flex items-end gap-1">
@@ -485,7 +465,6 @@ export default function Landing() {
                                 </Link>
                             </div>
 
-                            {/* Pricing Card 3 - 20袋 */}
                             <div className="bg-white flex flex-col gap-3 md:gap-4">
                                 <div className="flex flex-col gap-2">
                                     <div className="flex items-end gap-1">
@@ -530,17 +509,14 @@ export default function Landing() {
 
                     <div className="relative z-10 md:mt-20 mt-8">
                         <div className="mx-auto max-w-[1000px] bg-purple  shadow-[4px_4px_4px_3px_rgba(0,0,0,0.06)]">
-                            {/* Header Banner */}
                             <div className="py-4 md:py-5 mx-4 md:mx-[68px]">
                                 <div className="text-gold md:text-[26px] text-[18px] font-bold text-center py-2.5 md:py-3 md:px-4 px-2 border-gold border-t border-b-4">
                                     天空隊長はこうして生まれた！
                                 </div>
                             </div>
 
-                            {/* Dark Background Section with Bird Silhouette */}
                             <div className="relative bg-dark md:min-h-[514px] min-h-[400px] overflow-hidden mb-6 md:mb-8">
                                 <div className="absolute inset-0 flex items-center justify-center">
-                                    {/* Bird Silhouette - Centered */}
                                     <img
                                         src="/images/mask-group.png"
                                         alt="天空隊長"
@@ -548,7 +524,6 @@ export default function Landing() {
                                     />
                                 </div>
 
-                                {/* Vertical Japanese Text Overlay */}
                                 <div className="relative z-10 flex items-center justify-center md:min-h-[514px] min-h-[400px] p-4 md:p-8">
                                     <div className="flex flex-col-reverse items-center gap-3 md:gap-[15px] leading-[0.8] text-dark [writing-mode:vertical-rl] text-base md:text-xl font-noto ">
                                         <div>毎日を楽しむ人の強い味方です。</div>
@@ -557,7 +532,6 @@ export default function Landing() {
                                         <div>という一言から生まれた本商品。</div>
                                         <div className="relative inline-block text-center font-bold">
                                             <span className="relative z-10">「翌日をラクに過ごしたい」</span>
-                                            {/* Cross-browser thick gold underline (same as text-decoration + thickness 20px + -underline-offset-20); vertical-rl so bar on block-end (left) */}
                                             <span
                                                 className="absolute top-0 bottom-0 -right-0.5 md:w-5 w-4 bg-gold pointer-events-none"
                                                 aria-hidden
@@ -571,7 +545,6 @@ export default function Landing() {
                         </div>
                     </div>
 
-                    {/* Product Title Section */}
                     <div className="relative z-10 md:mt-20 mt-8">
                         <div className="mx-auto max-w-[1000px] bg-white py-8 md:py-10 px-4 md:px-5 shadow-[4px_4px_4px_3px_rgba(0,0,0,0.06)]">
                             <div className="flex flex-col items-center gap-6 md:gap-10">
@@ -591,8 +564,6 @@ export default function Landing() {
                     </div>
                 </section>
 
-
-                {/* Contact Section */}
                 <section className="w-full py-12 md:py-20 px-4 md:px-8 lg:px-16 bg-white">
                     <div className="max-w-[1000px] mx-auto">
                         <div className="flex flex-col items-center gap-4 md:gap-[25px]">

@@ -21,12 +21,12 @@ export default function Register() {
                 {...store.form()}
                 resetOnSuccess={['password', 'password_confirmation']}
                 disableWhileProcessing
-                className="flex flex-col gap-6"
+                className="flex flex-col gap-8"
             >
                 {({ processing, errors }) => (
                     <>
                         <div className="grid gap-6">
-                            <div className="grid gap-2">
+                            <div className="grid gap-3">
                                 <Label htmlFor="name">名前</Label>
                                 <Input
                                     id="name"
@@ -37,14 +37,12 @@ export default function Register() {
                                     autoComplete="name"
                                     name="name"
                                     placeholder=""
+                                    className="rounded-[2px]"
                                 />
-                                <InputError
-                                    message={errors.name}
-                                    className="mt-2"
-                                />
+                                <InputError message={errors.name} />
                             </div>
 
-                            <div className="grid gap-2">
+                            <div className="grid gap-3">
                                 <Label htmlFor="email">メールアドレス</Label>
                                 <Input
                                     id="email"
@@ -54,11 +52,12 @@ export default function Register() {
                                     autoComplete="email"
                                     name="email"
                                     placeholder=""
+                                    className="rounded-[2px]"
                                 />
                                 <InputError message={errors.email} />
                             </div>
 
-                            <div className="grid gap-2">
+                            <div className="grid gap-3">
                                 <Label htmlFor="password">パスワード</Label>
                                 <Input
                                     id="password"
@@ -68,11 +67,12 @@ export default function Register() {
                                     autoComplete="new-password"
                                     name="password"
                                     placeholder=""
+                                    className="rounded-[2px]"
                                 />
                                 <InputError message={errors.password} />
                             </div>
 
-                            <div className="grid gap-2">
+                            <div className="grid gap-3">
                                 <Label htmlFor="password_confirmation">
                                     パスワード（確認）
                                 </Label>
@@ -84,6 +84,7 @@ export default function Register() {
                                     autoComplete="new-password"
                                     name="password_confirmation"
                                     placeholder=""
+                                    className="rounded-[2px]"
                                 />
                                 <InputError
                                     message={errors.password_confirmation}
@@ -92,7 +93,7 @@ export default function Register() {
 
                             <Button
                                 type="submit"
-                                className="mt-2 w-full bg-[#ED0000] text-white hover:bg-[#ED0000]/90"
+                                className="mt-6 w-full rounded-none bg-[#ED0000] text-white hover:bg-[#ED0000]/90"
                                 tabIndex={5}
                                 data-test="register-user-button"
                             >

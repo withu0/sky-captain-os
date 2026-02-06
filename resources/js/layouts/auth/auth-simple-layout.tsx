@@ -8,30 +8,45 @@ export default function AuthSimpleLayout({
     title,
     description,
     branding,
+    withHeaderBar,
 }: AuthLayoutProps) {
     const isSkyCaptain = branding === 'sky-captain';
 
     return (
-        <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-background p-6 md:p-10">
-            <div className="w-full max-w-sm">
-                <div className="flex flex-col gap-8">
-                    <div className="flex flex-col items-center gap-4">
+        <div
+            className={
+                withHeaderBar
+                    ? 'flex min-h-0 flex-1 flex-col items-center justify-center gap-6 bg-background p-6 md:p-10'
+                    : 'flex min-h-svh flex-col items-center justify-center gap-6 bg-background p-6 md:p-10'
+            }
+        >
+            <div
+                className={
+                    withHeaderBar
+                        ? 'w-full max-w-2xl'
+                        : 'w-full max-w-sm'
+                }
+            >
+                <div className="flex flex-col gap-10 md:gap-12">
+                    <div className="flex flex-col items-center gap-6">
                         {isSkyCaptain ? (
                             <Link
                                 href={home()}
-                                className="flex flex-col items-center gap-2 text-[#682E53]"
+                                className="flex w-[12rem] flex-col items-center gap-2 text-[#682E53] md:w-[14rem]"
                             >
                                 <h1
-                                    className="text-3xl font-bold leading-none"
+                                    className="w-full text-center text-4xl font-bold leading-none md:text-5xl"
                                     style={{ fontFamily: 'var(--font-mplus2)' }}
                                 >
                                     天空隊長
                                 </h1>
                                 <div
-                                    className="text-[10px] md:text-[13px] font-normal border-b-2 border-t border-[#682E53] py-1 text-center"
-                                    style={{ letterSpacing: '1.2em' }}
+                                    className="w-full text-[9px] font-normal md:text-[11px]"
+                                    style={{ letterSpacing: '0.35em' }}
                                 >
-                                    てんくうたいちょー
+                                    <div className="w-full border-b-2 border-t border-[#682E53] py-1 text-center">
+                                        てんくうたいちょー
+                                    </div>
                                 </div>
                                 <span className="sr-only">{title}</span>
                             </Link>

@@ -32,12 +32,12 @@ export default function Login({
             <Form
                 {...store.form()}
                 resetOnSuccess={['password']}
-                className="flex flex-col gap-6"
+                className="flex flex-col gap-8"
             >
                 {({ processing, errors }) => (
                     <>
                         <div className="grid gap-6">
-                            <div className="grid gap-2">
+                            <div className="grid gap-3">
                                 <Label htmlFor="email">メールアドレス</Label>
                                 <Input
                                     id="email"
@@ -48,11 +48,12 @@ export default function Login({
                                     tabIndex={1}
                                     autoComplete="email"
                                     placeholder=""
+                                    className="rounded-[2px]"
                                 />
                                 <InputError message={errors.email} />
                             </div>
 
-                            <div className="grid gap-2">
+                            <div className="grid gap-3">
                                 <div className="flex items-center">
                                     <Label htmlFor="password">パスワード</Label>
                                     {canResetPassword && (
@@ -73,13 +74,14 @@ export default function Login({
                                     tabIndex={2}
                                     autoComplete="current-password"
                                     placeholder=""
+                                    className="rounded-[2px]"
                                 />
                                 <InputError message={errors.password} />
                             </div>
 
                             <Button
                                 type="submit"
-                                className="mt-4 w-full bg-[#ED0000] text-white hover:bg-[#ED0000]/90"
+                                className="mt-6 w-full rounded-none bg-[#ED0000] text-white hover:bg-[#ED0000]/90"
                                 tabIndex={4}
                                 disabled={processing}
                                 data-test="login-button"

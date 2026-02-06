@@ -16,4 +16,5 @@ export type AuthLayoutProps = {
     title?: string;
     description?: string;
     branding?: 'sky-captain';
+    withHeaderBar?: boolean;
 };

@@ -1,5 +1,5 @@
 import AppLayout from '@/layouts/app-layout';
-import { purchase, purchaseHistory } from '@/routes';
+import { purchase, purchaseProcedure } from '@/routes';
 import { Head, Link } from '@inertiajs/react';
 import { ShoppingCart } from 'lucide-react';
 import { useState } from 'react';
@@ -13,11 +13,9 @@ export default function Purchase() {
         <AppLayout sidebar={false}>
             <Head title="購入 | 天空隊長" />
             <div className="flex flex-col gap-8 p-4 md:p-8 max-w-[1280px] mx-auto">
-                {/* Top Section: Product Information */}
-                <section className="flex flex-col md:flex-row gap-18 md:gap-24">
-                    {/* Outermost: border only, no fill; equal padding; inner content centered */}
+                <section className="flex flex-col lg:flex-row gap-8 lg:gap-24">
                     <div className="flex flex-shrink-0 items-center justify-center border-2 border-border bg-transparent px-2 py-6">
-                        <div className="relative w-full max-w-full md:w-[460px] aspect-[2/1] overflow-hidden">
+                        <div className="relative w-full max-w-full lg:w-[460px] aspect-[2/1] overflow-hidden">
                             <div className="absolute inset-0 flex items-center justify-center">
                                 <img
                                     src="/images/スクリーンショット.png"
@@ -79,17 +77,15 @@ export default function Purchase() {
                     </div>
                 </section>
 
-                {/* Bottom Section: design = gold frame around all; bold gold line under tabs (full width); tabs touch, white text */}
                 <section className="bg-card overflow-hidden">
-                    {/* Tabs: selected=gold+white+bigger, inactive=purple+white; bold gold line spans full width below */}
                     <div className="flex gap-1 ">
                         <button
                             type="button"
                             onClick={() => setActiveTab('subscription')}
-                            className={`flex-1 min-w-0 py-[5px] px-4 font-medium text-white transition-colors flex items-center justify-center ${
+                            className={`flex-1 min-w-0 py-[6px] px-2 sm:px-4 font-medium text-white transition-colors flex items-center justify-center ${
                                 activeTab === 'subscription'
-                                    ? 'bg-[#D4AC4C] text-[24px]'
-                                    : 'bg-[#6A2E6A] hover:bg-[#5a2860] text-[20px] mb-[2px]'
+                                    ? 'bg-[#D4AC4C] text-[16px] sm:text-[20px] md:text-[24px]'
+                                    : 'bg-[#6A2E6A] hover:bg-[#5a2860] text-[14px] sm:text-[18px] md:text-[20px] mb-[2px]'
                             }`}
                         >
                             6ヶ月サブスク購入
@@ -97,21 +93,19 @@ export default function Purchase() {
                         <button
                             type="button"
                             onClick={() => setActiveTab('normal')}
-                            className={`flex-1 min-w-0 py-[5px] px-4 font-medium text-white transition-colors flex items-center justify-center ${
+                            className={`flex-1 min-w-0 py-[6px] px-2 sm:px-4 font-medium text-white transition-colors flex items-center justify-center ${
                                 activeTab === 'normal'
-                                    ? 'bg-[#D4AC4C] text-[24px]'
-                                    : 'bg-[#6A2E6A] hover:bg-[#5a2860] text-[20px] mb-[2px]'
+                                    ? 'bg-[#D4AC4C] text-[16px] sm:text-[20px] md:text-[24px]'
+                                    : 'bg-[#6A2E6A] hover:bg-[#5a2860] text-[14px] sm:text-[18px] md:text-[20px] mb-[2px]'
                             }`}
                         >
                             通常購入
                         </button>
                     </div>
 
-                    {/* Content: white area directly below bold gold line */}
-                    <div className="p-6 md:p-8 flex flex-col md:flex-row gap-32 md:gap-48 md:justify-between bg-white border-4 border-[#D4AC4C]">
-                        {/* Outermost: border only, no fill; equal padding; inner content centered */}
-                        <div className="flex flex-shrink-0 items-center justify-center border-2 border-border bg-transparent px-12 py-10">
-                            <div className="relative w-full max-w-full md:w-[340px] aspect-[2/1] overflow-hidden">
+                    <div className="p-4 sm:p-6 lg:p-8 flex flex-col lg:flex-row gap-8 lg:gap-24 lg:justify-between bg-white border-4 border-[#D4AC4C]">
+                        <div className="flex flex-shrink-0 items-center justify-center border-2 border-border bg-transparent px-6 py-6 sm:px-10 sm:py-8 lg:px-12 lg:py-10 w-full max-w-full lg:min-w-0 lg:w-[364px]">
+                            <div className="relative w-full max-w-[340px] aspect-[2/1] overflow-hidden mx-auto lg:mx-0 lg:w-[340px] lg:max-w-none">
                                 <div className="absolute inset-0 flex items-center justify-center">
                                     <img
                                         src="/images/スクリーンショット.png"
@@ -119,10 +113,10 @@ export default function Purchase() {
                                         className="h-full w-auto max-w-full object-contain"
                                     />
                                 </div>
-                                <div className="absolute inset-0 flex items-center justify-center" aria-hidden>
+                                <div className="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden>
                                     <div className="h-full w-full bg-[#D9D9D9]/60" />
                                 </div>
-                                <div className="absolute inset-0 flex items-center justify-center">
+                                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                                     <span
                                         className="font-bold text-2xl md:text-4xl"
                                         style={{
@@ -136,39 +130,39 @@ export default function Purchase() {
                                 </div>
                             </div>
                         </div>
-                        <div className="flex-1 flex flex-col gap-3 bg-white md:ml-auto md:max-w-[640px]">
+                        <div className="flex-1 flex flex-col gap-3 bg-white min-w-0 lg:ml-auto lg:max-w-[640px]">
                             {activeTab === 'subscription' ? (
                                 <>
-                                    <h2 className="text-[34px] font-bold text-[#231C1D]">
+                                    <h2 className="text-[22px] sm:text-[28px] md:text-[34px] font-bold text-[#231C1D]">
                                         天空隊長 5袋セット
                                     </h2>
-                                    <p className="text-[16px] text-[#231C1D] py-2 px-3 bg-[#F8F2E2] w-full">
+                                    <p className="text-[14px] sm:text-[16px] text-[#231C1D] py-2 px-3 bg-[#F8F2E2] w-full">
                                         6ヶ月のサブスク購入で通常価格より20%OFF
                                     </p>
-                                    <div className="mt-2 grid grid-cols-[auto_1fr_auto] items-start gap-x-3">
-                                        <span className="inline-flex items-center justify-center px-2 py-[3px] text-center leading-[1.1] text-[13px] font-medium text-[#D4AC4C] bg-white border border-[#D4AC4C]">
+                                    <div className="mt-2 grid grid-cols-[auto_1fr_auto] items-start gap-x-2 sm:gap-x-3 gap-y-2 min-w-0">
+                                        <span className="inline-flex items-center justify-center px-2 py-[3px] text-center leading-[1.1] text-[12px] sm:text-[13px] font-medium text-[#D4AC4C] bg-white border border-[#D4AC4C]">
                                             6ヶ月
                                             <br />
                                             定期購入
                                         </span>
-                                        <div className="flex items-baseline gap-1 whitespace-nowrap">
-                                            <span className="text-[36px] font-bold text-[#E00000] leading-none">
+                                        <div className="flex items-baseline gap-1 whitespace-nowrap min-w-0 overflow-hidden">
+                                            <span className="text-[24px] sm:text-[32px] md:text-[36px] font-bold text-[#E00000] leading-none">
                                                 1,212
                                             </span>
-                                            <span className="text-[34px] font-bold text-[#E00000] leading-none">
+                                            <span className="text-[22px] sm:text-[30px] md:text-[34px] font-bold text-[#E00000] leading-none">
                                                 円
                                             </span>
-                                            <span className="text-[15px] text-[#666666] leading-none ml-1">
+                                            <span className="text-[13px] sm:text-[15px] text-[#666666] leading-none ml-1 shrink-0">
                                                 （税抜）
                                             </span>
                                         </div>
-                                        <span className="text-[14px] text-[#E00000] justify-self-end text-right leading-[1.1] mt-[6px]">
+                                        <span className="text-[12px] sm:text-[14px] text-[#E00000] justify-self-end text-right leading-[1.1] mt-[6px]">
                                             1袋あたり
                                             <br />
                                             242円
                                         </span>
                                     </div>
-                                    <div className="mt-4 flex items-center justify-between gap-4">
+                                    <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
                                         <div className="flex items-center gap-3 invisible" aria-hidden>
                                             <span className="text-[16px] font-medium text-[#231C1D]">
                                                 数量
@@ -183,8 +177,8 @@ export default function Purchase() {
                                             />
                                         </div>
                                         <Link
-                                            href={purchaseHistory()}
-                                            className="grid grid-cols-[20px_1fr] items-center w-[240px] px-10 py-3 text-base font-medium bg-[#E00000] text-white hover:bg-[#E00000]/90 transition-colors"
+                                            href={purchaseProcedure()}
+                                            className="grid grid-cols-[20px_1fr] items-center w-full sm:w-[240px] px-8 sm:px-10 py-3 text-base font-medium bg-[#E00000] text-white hover:bg-[#E00000]/90 transition-colors rounded-[4px]"
                                         >
                                             <ShoppingCart className="size-5 justify-self-start" />
                                             <span className="text-center">サブスク購入する</span>
@@ -194,34 +188,34 @@ export default function Purchase() {
                                 </>
                             ) : (
                                 <>
-                                    <h2 className="text-[34px] font-bold text-[#231C1D]">
+                                    <h2 className="text-[22px] sm:text-[28px] md:text-[34px] font-bold text-[#231C1D]">
                                         天空隊長 5袋セット
                                     </h2>
-                                    <p className="text-[16px] text-[#231C1D] py-2 px-3 bg-[#F8F2E2] w-full">
+                                    <p className="text-[14px] sm:text-[16px] text-[#231C1D] py-2 px-3 bg-[#F8F2E2] w-full">
                                         6ヶ月のサブスク購入で通常価格より20%OFF
                                     </p>
-                                    <div className="mt-2 grid grid-cols-[auto_1fr_auto] items-start gap-x-3">
-                                        <span className="mt-2 inline-flex items-center justify-center px-2 py-[3px] text-center leading-[1.1] text-[13px] font-medium text-[#E00000] bg-white border border-[#E00000]">
+                                    <div className="mt-2 grid grid-cols-[auto_1fr_auto] items-start gap-x-2 sm:gap-x-3 gap-y-2 min-w-0">
+                                        <span className="mt-2 inline-flex items-center justify-center px-2 py-[3px] text-center leading-[1.1] text-[12px] sm:text-[13px] font-medium text-[#E00000] bg-white border border-[#E00000]">
                                             通常購入
                                         </span>
-                                        <div className="flex items-baseline gap-1 whitespace-nowrap">
-                                            <span className="text-[36px] font-bold text-[#E00000] leading-none">
+                                        <div className="flex items-baseline gap-1 whitespace-nowrap min-w-0 overflow-hidden">
+                                            <span className="text-[24px] sm:text-[32px] md:text-[36px] font-bold text-[#E00000] leading-none">
                                                 1,515
                                             </span>
-                                            <span className="text-[34px] font-bold text-[#E00000] leading-none">
+                                            <span className="text-[22px] sm:text-[30px] md:text-[34px] font-bold text-[#E00000] leading-none">
                                                 円
                                             </span>
-                                            <span className="text-[15px] text-[#666666] leading-none ml-1">
+                                            <span className="text-[13px] sm:text-[15px] text-[#666666] leading-none ml-1 shrink-0">
                                                 （税抜）
                                             </span>
                                         </div>
-                                        <span className="text-[14px] text-[#E00000] justify-self-end text-right leading-[1.1] mt-[6px]">
+                                        <span className="text-[12px] sm:text-[14px] text-[#E00000] justify-self-end text-right leading-[1.1] mt-[6px]">
                                             1袋あたり
                                             <br />
                                             305円
                                         </span>
                                     </div>
-                                    <div className="mt-4 flex items-center justify-between gap-4">
+                                    <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
                                         <div className="flex items-center gap-5">
                                             <span className="text-[16px] font-medium text-[#231C1D]">
                                                 数量
@@ -230,12 +224,12 @@ export default function Purchase() {
                                                 type="number"
                                                 min={1}
                                                 defaultValue={1}
-                                                className="h-10 w-24 rounded-sm border border-[#D9D9D9] px-3 text-[16px] text-[#231C1D] focus:outline-none focus:ring-2 focus:ring-[#D4AC4C]/40"
+                                                className="h-10 w-18 rounded-sm border border-[#D9D9D9] px-3 text-[16px] text-[#231C1D] focus:outline-none focus:ring-2 focus:ring-[#D4AC4C]/40"
                                             />
                                         </div>
                                         <Link
-                                            href={purchaseHistory()}
-                                            className="grid grid-cols-[20px_1fr] items-center w-[240px] px-10 py-3 text-base font-medium bg-[#E00000] text-white hover:bg-[#E00000]/90 transition-colors"
+                                            href={purchaseProcedure()}
+                                            className="grid grid-cols-[20px_1fr] items-center w-full sm:w-[240px] px-8 sm:px-10 py-3 text-base font-medium bg-[#E00000] text-white hover:bg-[#E00000]/90 transition-colors rounded-[4px]"
                                         >
                                             <ShoppingCart className="size-5 justify-self-start" />
                                             <span className="text-center">通常購入する</span>
