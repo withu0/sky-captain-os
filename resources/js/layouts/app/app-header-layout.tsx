@@ -1,10 +1,20 @@
 // File: resources/layouts/app/app-header-layout.tsx
+import type { SharedData } from '@/types';
+import { Link, usePage, router } from '@inertiajs/react';
 import React, { useState } from 'react';
 
 const Header = () => {
+  const { auth } = usePage<SharedData>().props;
+  const user = auth.user;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const navItems = [
+  const handleLogout = (e: React.MouseEvent) => {
+    e.preventDefault();
+    router.post('/logout');
+  };
+
+  // Nav items shown when user is NOT logged in
+  const guestNavItems = [
     {
       href: '/auth/register',
       icon: (
@@ -23,6 +33,10 @@ const Header = () => {
       ),
       label: 'ログイン',
     },
+  ];
+
+  // Nav items shown when user IS logged in
+  const authNavItems = [
     {
       href: '/favorites',
       icon: (
@@ -57,13 +71,15 @@ const Header = () => {
     },
   ];
 
+  const desktopNavItems = user ? authNavItems : guestNavItems;
+
   return (
     <header className="bg-white border-b border-gray-200">
       {/* Main Header - Image style: logo left, nav right */}
       <div className="container mx-auto px-4">
         <div className="flex flex-row justify-between items-center py-4 gap-4">
           {/* Brand: Logo + Site Title */}
-          <a href="/" className="flex items-center gap-3 no-underline group">
+          <Link href="/" className="flex items-center gap-3 no-underline group">
             <img
               src="/images/天空隊長.png"
               alt="天空隊長"
@@ -77,20 +93,35 @@ const Header = () => {
                 公式オンラインショップ
               </p>
             </div>
-          </a>
+          </Link>
 
           {/* User Actions - Desktop: Icon above text, horizontally spaced */}
           <div className="hidden md:flex items-end gap-8">
-            {navItems.map(({ href, icon, label }) => (
-              <a
+            {desktopNavItems.map(({ href, icon, label }) => (
+              <Link
                 key={href}
                 href={href}
                 className="flex flex-col items-center gap-1 text-gray-600 hover:text-red-600 no-underline transition-colors min-w-[4rem]"
               >
                 <span>{icon}</span>
                 <span className="text-xs font-medium">{label}</span>
-              </a>
+              </Link>
             ))}
+
+            {/* Logout button for authenticated users */}
+            {user && (
+              <button
+                onClick={handleLogout}
+                className="flex flex-col items-center gap-1 text-gray-600 hover:text-red-600 transition-colors min-w-[4rem] bg-transparent border-none cursor-pointer"
+              >
+                <span>
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                  </svg>
+                </span>
+                <span className="text-xs font-medium">ログアウト</span>
+              </button>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -119,66 +150,85 @@ const Header = () => {
         {isMenuOpen && (
           <div className="md:hidden border-t border-gray-200 py-4">
             <div className="space-y-4">
-              {/* User Actions - Mobile */}
-              <div className="grid grid-cols-2 gap-4 pb-4 border-b">
-                <a
-                  href="/auth/register"
-                  className="bg-red-600 text-white py-2.5 text-center rounded text-sm no-underline"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  新規会員登録
-                </a>
-                <a
-                  href="/auth/login"
-                  className="bg-gray-100 text-gray-700 py-2.5 text-center rounded text-sm no-underline"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  ログイン
-                </a>
-              </div>
+              {/* User Actions - Mobile: Guest */}
+              {!user && (
+                <div className="grid grid-cols-2 gap-4 pb-4 border-b">
+                  <Link
+                    href="/auth/register"
+                    className="bg-red-600 text-white py-2.5 text-center rounded text-sm no-underline"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    新規会員登録
+                  </Link>
+                  <Link
+                    href="/auth/login"
+                    className="bg-gray-100 text-gray-700 py-2.5 text-center rounded text-sm no-underline"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    ログイン
+                  </Link>
+                </div>
+              )}
+
+              {/* User Info - Mobile: Authenticated */}
+              {user && (
+                <div className="flex items-center gap-3 pb-4 border-b">
+                  <div className="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold text-sm">
+                    {user.name.charAt(0).toUpperCase()}
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-gray-900">{user.name}</p>
+                    <p className="text-xs text-gray-500">{user.email}</p>
+                  </div>
+                </div>
+              )}
               
               <div className="space-y-2">
-                <a
-                  href="/favorites"
-                  className="flex items-center space-x-3 py-2 text-gray-700 no-underline"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                    />
-                  </svg>
-                  <span>お気に入り</span>
-                </a>
-                <a
-                  href="/mypage"
-                  className="flex items-center space-x-3 py-2 text-gray-700 no-underline"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                    />
-                  </svg>
-                  <span>マイページ</span>
-                </a>
-                <a
+                {user && (
+                  <>
+                    <Link
+                      href="/favorites"
+                      className="flex items-center space-x-3 py-2 text-gray-700 no-underline"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={1.5}
+                          d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                        />
+                      </svg>
+                      <span>お気に入り</span>
+                    </Link>
+                    <Link
+                      href="/mypage"
+                      className="flex items-center space-x-3 py-2 text-gray-700 no-underline"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={1.5}
+                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                        />
+                      </svg>
+                      <span>マイページ</span>
+                    </Link>
+                  </>
+                )}
+                <Link
                   href="/cart"
                   className="flex items-center space-x-3 py-2 text-gray-700 no-underline"
                   onClick={() => setIsMenuOpen(false)}
@@ -202,61 +252,89 @@ const Header = () => {
                     </span>
                   </div>
                   <span>カート</span>
-                </a>
+                </Link>
               </div>
 
               {/* Navigation Links - Mobile */}
               <div className="pt-4 border-t space-y-2">
-                <a
+                <Link
                   href="/"
                   className="block py-2 text-gray-700 no-underline"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   ホーム
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/products"
                   className="block py-2 text-gray-700 no-underline"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   商品一覧
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/new-arrivals"
                   className="block py-2 text-gray-700 no-underline"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   新着商品
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/best-sellers"
                   className="block py-2 text-gray-700 no-underline"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   ベストセラー
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/sale"
                   className="block py-2 text-red-600 no-underline"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   セール
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/about"
                   className="block py-2 text-gray-700 no-underline"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   会社概要
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/contact"
                   className="block py-2 text-gray-700 no-underline"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   お問い合わせ
-                </a>
+                </Link>
               </div>
+
+              {/* Logout - Mobile */}
+              {user && (
+                <div className="pt-4 border-t">
+                  <button
+                    onClick={(e) => {
+                      setIsMenuOpen(false);
+                      handleLogout(e);
+                    }}
+                    className="flex items-center space-x-3 py-2 text-red-600 bg-transparent border-none cursor-pointer w-full text-left"
+                  >
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1.5}
+                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                      />
+                    </svg>
+                    <span>ログアウト</span>
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         )}
