@@ -275,7 +275,7 @@ export default function Product({ variant = '5' }: { variant: string }) {
                                         className={`flex flex-row items-center ${method === 'subscription' ? 'p-[8px_16px] gap-[16px]' : 'p-[8px_16px] gap-[24px]'} w-[200px] h-[40px] bg-[#ED0000] no-underline`}
                                     >
                                         <div className="w-[24px] h-[24px] relative">
-                                            <CartIcon />
+                                            <img src='/images/cart.png' alt='カート' className='w-full h-full object-contain' />
                                         </div>
                                         <span className={`font-bold text-[16px] leading-[19px] text-center text-white ${method === 'subscription' ? 'w-[128px]' : 'w-[96px]'} h-[19px]`}>
                                             {method === 'subscription' ? 'サブスク購入する' : '通常購入する'}

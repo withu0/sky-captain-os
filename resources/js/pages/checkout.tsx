@@ -163,30 +163,30 @@ export default function Checkout({
                                         2.お支払い方法
                                     </h2>
 
-                                    <div className="flex flex-col gap-4">
+                                    <div className="flex flex-col gap-4 max-w-[960px] w-full">
                                         <p className="text-[#231C1D] text-sm">
                                             お支払方法を下記より選択してください。
                                         </p>
 
-                                        <div className="flex flex-col gap-4">
+                                        <div className="flex flex-col items-start p-0 gap-4 w-full">
                                             {paymentMethods.map((method) => (
                                                 <label
                                                     key={method.id}
-                                                    className={`group flex items-center p-4 gap-3 border-2 rounded cursor-pointer transition-colors ${
+                                                    className={`flex flex-row items-center py-[10px] px-4 gap-3 w-full min-h-14 h-14 bg-white border-2 rounded cursor-pointer transition-colors ${
                                                         selectedPayment === method.id
-                                                            ? 'border-[#38BDF8] bg-sky-50/30'
-                                                            : 'border-[#D1D1D1] bg-white hover:border-[#38BDF8] hover:bg-sky-50/30'
+                                                            ? 'border-[#00A5D9]'
+                                                            : 'border-[#D9D9D9] hover:border-[#00A5D9]'
                                                     }`}
                                                 >
                                                     <div
-                                                        className={`flex justify-center items-center w-8 h-8 rounded-full border-2 transition-colors ${
+                                                        className={`relative flex justify-center items-center w-8 h-8 rounded-full border-2 bg-white transition-colors ${
                                                             selectedPayment === method.id
-                                                                ? 'border-[#0EA5E9] bg-[#0EA5E9]'
-                                                                : 'border-[#B3B3B3] bg-white group-hover:border-[#38BDF8]'
+                                                                ? 'border-[#00A5D9]'
+                                                                : 'border-[#D9D9D9]'
                                                         }`}
                                                     >
                                                         {selectedPayment === method.id && (
-                                                            <div className="w-3 h-3 rounded-full bg-white" />
+                                                            <div className="w-5 h-5 rounded-full bg-[#00A5D9]" />
                                                         )}
                                                     </div>
                                                     <input
@@ -201,10 +201,10 @@ export default function Checkout({
                                                         className="sr-only"
                                                     />
                                                     <span
-                                                        className={`font-medium text-base transition-colors ${
+                                                        className={`font-medium text-base leading-[110%] transition-colors ${
                                                             selectedPayment === method.id
-                                                                ? 'text-[#0EA5E9]'
-                                                                : 'text-[#333333] group-hover:text-[#38BDF8]'
+                                                                ? 'text-[#00A5D9]'
+                                                                : 'text-[#333333]'
                                                         }`}
                                                     >
                                                         {method.label}
@@ -214,10 +214,33 @@ export default function Checkout({
                                         </div>
 
                                         {selectedPayment === 'credit' && paymentSelected && (
-                                            <div className="ml-12 p-4 rounded border border-[#E1E1E1] bg-[#F8F8F8]/30 text-sm text-[#231C1D] space-y-1">
-                                                <p>VISA 末尾 0000</p>
-                                                <p>クレジットカード名義人: TARO YAMADA</p>
-                                                <p>有効期限: 01/2027</p>
+                                            <div className="flex flex-col justify-center items-start py-[10px] px-4 gap-3 w-full min-h-[188px] bg-white border-2 border-[#D9D9D9] rounded">
+                                                <div className="flex items-center gap-3">
+                                                    <span className="text-[#333333] font-medium text-base leading-[100%]">
+                                                        VISA
+                                                    </span>
+                                                    <span className="text-[#333333] font-normal text-base leading-[100%]">
+                                                        末尾 0000
+                                                    </span>
+                                                </div>
+
+                                                <div className="flex flex-col gap-1">
+                                                    <span className="text-[14px] leading-[100%] text-[rgba(51,51,51,0.5)]">
+                                                        クレジットカード名義人
+                                                    </span>
+                                                    <span className="text-[#333333] font-normal text-base leading-[100%]">
+                                                        TARO YAMADA
+                                                    </span>
+                                                </div>
+
+                                                <div className="flex flex-col gap-1">
+                                                    <span className="text-[14px] leading-[100%] text-[rgba(51,51,51,0.5)]">
+                                                        有効期限
+                                                    </span>
+                                                    <span className="text-[#333333] font-normal text-base leading-[100%]">
+                                                        01/2027
+                                                    </span>
+                                                </div>
                                             </div>
                                         )}
                                     </div>

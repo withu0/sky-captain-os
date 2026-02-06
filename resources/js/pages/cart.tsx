@@ -126,20 +126,20 @@ export default function Cart() {
 
                                                 {/* Radio button for credit card */}
                                                 <label
-                                                    className={`flex items-center gap-3 p-4 rounded border-2 cursor-pointer transition-colors ${paymentSelected
-                                                            ? 'border-teal-500 bg-teal-50/50'
-                                                            : 'border-[#D9D9D9] bg-white'
+                                                    className={`flex flex-row items-center py-[10px] px-4 gap-3 w-full min-h-14 h-14 bg-white border-2 rounded cursor-pointer transition-colors ${paymentSelected
+                                                            ? 'border-[#00A5D9]'
+                                                            : 'border-[#D9D9D9] hover:border-[#00A5D9]'
                                                         }`}
                                                     style={{ minHeight: '56px' }}
                                                 >
                                                     <span
-                                                        className={`flex-shrink-0 w-8 h-8 rounded-full border-2 flex items-center justify-center ${paymentSelected
-                                                                ? 'border-teal-500 bg-teal-500'
-                                                                : 'border-[#B3B3B3] bg-white'
+                                                        className={`relative flex-shrink-0 w-8 h-8 rounded-full border-2 flex items-center justify-center bg-white ${paymentSelected
+                                                                ? 'border-[#00A5D9]'
+                                                                : 'border-[#D9D9D9]'
                                                             }`}
                                                     >
                                                         {paymentSelected && (
-                                                            <span className="w-3 h-3 rounded-full bg-white" />
+                                                            <span className="w-5 h-5 rounded-full bg-[#00A5D9]" />
                                                         )}
                                                     </span>
                                                     <input
@@ -149,17 +149,40 @@ export default function Cart() {
                                                         onChange={() => setPaymentSelected(true)}
                                                         className="sr-only"
                                                     />
-                                                    <span className={paymentSelected ? 'text-teal-700 font-medium' : 'text-[#333333] font-medium'}>
+                                                    <span className={`font-medium text-base leading-[110%] ${paymentSelected ? 'text-[#00A5D9]' : 'text-[#333333]'}`}>
                                                         クレジットカード
                                                     </span>
                                                 </label>
 
                                                 {/* Card details when selected */}
                                                 {paymentSelected && (
-                                                    <div className="ml-11 p-4 rounded-lg border border-border bg-muted/30 text-sm text-dark space-y-1">
-                                                        <p>VISA 末尾 0000</p>
-                                                        <p>クレジットカード名義人: TARO YAMADA</p>
-                                                        <p>有効期限: 01/2027</p>
+                                                    <div className="flex flex-col justify-center items-start py-[10px] px-4 gap-3 w-full min-h-[188px] bg-white border-2 border-[#D9D9D9] rounded">
+                                                        <div className="flex items-center gap-3">
+                                                            <span className="text-[#333333] font-medium text-base leading-[100%]">
+                                                                VISA
+                                                            </span>
+                                                            <span className="text-[#333333] font-normal text-base leading-[100%]">
+                                                                末尾 0000
+                                                            </span>
+                                                        </div>
+
+                                                        <div className="flex flex-col gap-1">
+                                                            <span className="text-[14px] leading-[100%] text-[rgba(51,51,51,0.5)]">
+                                                                クレジットカード名義人
+                                                            </span>
+                                                            <span className="text-[#333333] font-normal text-base leading-[100%]">
+                                                                TARO YAMADA
+                                                            </span>
+                                                        </div>
+
+                                                        <div className="flex flex-col gap-1">
+                                                            <span className="text-[14px] leading-[100%] text-[rgba(51,51,51,0.5)]">
+                                                                有効期限
+                                                            </span>
+                                                            <span className="text-[#333333] font-normal text-base leading-[100%]">
+                                                                01/2027
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 )}
                                             </div>
