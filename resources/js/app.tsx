@@ -5,7 +5,10 @@ import { createRoot } from 'react-dom/client';
 import '../css/app.css';
 import { initializeTheme } from './hooks/use-appearance';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const appName =
+    import.meta.env.VITE_APP_NAME && import.meta.env.VITE_APP_NAME !== 'Laravel'
+        ? import.meta.env.VITE_APP_NAME
+        : '天空隊長';
 
 createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
