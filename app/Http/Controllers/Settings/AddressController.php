@@ -10,9 +10,6 @@ use Illuminate\Http\RedirectResponse;
 
 class AddressController extends Controller
 {
-    /**
-     * Store a new address.
-     */
     public function store(AddressStoreRequest $request): RedirectResponse
     {
         $request->user()->addresses()->create($request->validated());
@@ -20,9 +17,6 @@ class AddressController extends Controller
         return back();
     }
 
-    /**
-     * Update an existing address.
-     */
     public function update(AddressUpdateRequest $request, Address $address): RedirectResponse
     {
         if ($address->user_id !== $request->user()->id) {
@@ -34,9 +28,6 @@ class AddressController extends Controller
         return back();
     }
 
-    /**
-     * Delete an address.
-     */
     public function destroy(Address $address): RedirectResponse
     {
         if ($address->user_id !== $request->user()->id) {

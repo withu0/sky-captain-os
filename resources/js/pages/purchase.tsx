@@ -1,13 +1,20 @@
 import AppLayout from '@/layouts/app-layout';
-import { purchase, purchaseProcedure } from '@/routes';
-import { Head, Link } from '@inertiajs/react';
-import { ShoppingCart } from 'lucide-react';
+import { addToCart } from '@/lib/cart';
+import { formatYen, getVariant } from '@/lib/product-variants';
+import { toUrl } from '@/lib/utils';
+import { checkout, purchase } from '@/routes';
+import { Head, Link, router, usePage } from '@inertiajs/react';
+import type { SharedData } from '@/types';
+import { ShoppingBag, ShoppingCart } from 'lucide-react';
 import { useState } from 'react';
 
 type TabType = 'subscription' | 'normal';
 
 export default function Purchase() {
     const [activeTab, setActiveTab] = useState<TabType>('subscription');
+    const [normalCount, setNormalCount] = useState(1);
+    const quantity = (usePage<SharedData>().props.quantity as number | undefined) ?? 5;
+    const variant = getVariant(quantity);
 
     return (
         <AppLayout sidebar={false}>
@@ -109,7 +116,7 @@ export default function Purchase() {
                                 <div className="absolute inset-0 flex items-center justify-center">
                                     <img
                                         src="/images/スクリーンショット.png"
-                                        alt="天空隊長 5袋セット"
+                                        alt={variant.label}
                                         className="h-full w-auto max-w-full object-contain"
                                     />
                                 </div>
@@ -134,7 +141,7 @@ export default function Purchase() {
                             {activeTab === 'subscription' ? (
                                 <>
                                     <h2 className="text-[22px] sm:text-[28px] md:text-[34px] font-bold text-[#231C1D]">
-                                        天空隊長 5袋セット
+                                        {variant.label}
                                     </h2>
                                     <p className="text-[14px] sm:text-[16px] text-[#231C1D] py-2 px-3 bg-[#F8F2E2] w-full">
                                         6ヶ月のサブスク購入で通常価格より20%OFF
@@ -147,7 +154,7 @@ export default function Purchase() {
                                         </span>
                                         <div className="flex items-baseline gap-1 whitespace-nowrap min-w-0 overflow-hidden">
                                             <span className="text-[24px] sm:text-[32px] md:text-[36px] font-bold text-[#E00000] leading-none">
-                                                1,212
+                                                {formatYen(variant.subscription.total)}
                                             </span>
                                             <span className="text-[22px] sm:text-[30px] md:text-[34px] font-bold text-[#E00000] leading-none">
                                                 円
@@ -159,10 +166,10 @@ export default function Purchase() {
                                         <span className="text-[12px] sm:text-[14px] text-[#E00000] justify-self-end text-right leading-[1.1] mt-[6px]">
                                             1袋あたり
                                             <br />
-                                            242円
+                                            {variant.subscription.perBag}円
                                         </span>
                                     </div>
-                                    <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+                                    <div className="mt-4 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
                                         <div className="flex items-center gap-3 invisible" aria-hidden>
                                             <span className="text-[16px] font-medium text-[#231C1D]">
                                                 数量
@@ -176,20 +183,37 @@ export default function Purchase() {
                                                 tabIndex={-1}
                                             />
                                         </div>
-                                        <Link
-                                            href={purchaseProcedure()}
-                                            className="grid grid-cols-[20px_1fr] items-center w-full sm:w-[240px] px-8 sm:px-10 py-3 text-base font-medium bg-[#E00000] text-white hover:bg-[#E00000]/90 transition-colors rounded-[4px]"
-                                        >
-                                            <ShoppingCart className="size-5 justify-self-start" />
-                                            <span className="text-center">サブスク購入する</span>
-                                        </Link>
+                                        <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3 flex-1 min-w-0 sm:justify-end">
+                                            <Link
+                                                href={`${toUrl(checkout())}?quantity=${quantity}&mode=subscription`}
+                                                className="grid grid-cols-[20px_1fr] items-center justify-center w-full sm:w-[200px] sm:min-w-[200px] px-6 py-3 text-base font-medium bg-[#E00000] text-white hover:bg-[#E00000]/90 transition-colors rounded-[4px]"
+                                            >
+                                                <ShoppingCart className="size-5 justify-self-start shrink-0" />
+                                                <span className="text-center">サブスク購入する</span>
+                                            </Link>
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    addToCart({
+                                                        quantity: quantity as 5 | 10 | 20,
+                                                        mode: 'subscription',
+                                                        count: 1,
+                                                    });
+                                                    router.visit('/cart');
+                                                }}
+                                                className="grid grid-cols-[20px_1fr] items-center justify-center w-full sm:w-[200px] sm:min-w-[200px] px-6 py-3 text-base font-medium rounded-[4px] border-0 text-[#ffffff] bg-[#d4af37] hover:bg-[#d4af37]/90 transition-colors cursor-pointer"
+                                            >
+                                                <ShoppingBag className="size-5 justify-self-start shrink-0" aria-hidden />
+                                                <span className="text-center">カートに追加</span>
+                                            </button>
+                                        </div>
                                     </div>
                                     <hr className="mt-4 border-t border-[#D9D9D9]" />
                                 </>
                             ) : (
                                 <>
                                     <h2 className="text-[22px] sm:text-[28px] md:text-[34px] font-bold text-[#231C1D]">
-                                        天空隊長 5袋セット
+                                        {variant.label}
                                     </h2>
                                     <p className="text-[14px] sm:text-[16px] text-[#231C1D] py-2 px-3 bg-[#F8F2E2] w-full">
                                         6ヶ月のサブスク購入で通常価格より20%OFF
@@ -200,7 +224,7 @@ export default function Purchase() {
                                         </span>
                                         <div className="flex items-baseline gap-1 whitespace-nowrap min-w-0 overflow-hidden">
                                             <span className="text-[24px] sm:text-[32px] md:text-[36px] font-bold text-[#E00000] leading-none">
-                                                1,515
+                                                {formatYen(variant.normal.total)}
                                             </span>
                                             <span className="text-[22px] sm:text-[30px] md:text-[34px] font-bold text-[#E00000] leading-none">
                                                 円
@@ -212,28 +236,46 @@ export default function Purchase() {
                                         <span className="text-[12px] sm:text-[14px] text-[#E00000] justify-self-end text-right leading-[1.1] mt-[6px]">
                                             1袋あたり
                                             <br />
-                                            305円
+                                            {variant.normal.perBag}円
                                         </span>
                                     </div>
-                                    <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
-                                        <div className="flex items-center gap-5">
-                                            <span className="text-[16px] font-medium text-[#231C1D]">
+                                    <div className="mt-4 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+                                        <div className="flex items-center gap-3 sm:gap-5 shrink-0">
+                                            <span className="text-[14px] sm:text-[16px] font-medium text-[#231C1D]">
                                                 数量
                                             </span>
                                             <input
                                                 type="number"
                                                 min={1}
-                                                defaultValue={1}
-                                                className="h-10 w-18 rounded-sm border border-[#D9D9D9] px-3 text-[16px] text-[#231C1D] focus:outline-none focus:ring-2 focus:ring-[#D4AC4C]/40"
+                                                value={normalCount}
+                                                onChange={(e) => setNormalCount(Math.max(1, parseInt(e.target.value, 10) || 1))}
+                                                className="h-10 w-16 sm:w-18 rounded-sm border border-[#D9D9D9] px-3 text-[16px] text-[#231C1D] focus:outline-none focus:ring-2 focus:ring-[#D4AC4C]/40"
                                             />
                                         </div>
-                                        <Link
-                                            href={purchaseProcedure()}
-                                            className="grid grid-cols-[20px_1fr] items-center w-full sm:w-[240px] px-8 sm:px-10 py-3 text-base font-medium bg-[#E00000] text-white hover:bg-[#E00000]/90 transition-colors rounded-[4px]"
-                                        >
-                                            <ShoppingCart className="size-5 justify-self-start" />
-                                            <span className="text-center">通常購入する</span>
-                                        </Link>
+                                        <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3 flex-1 min-w-0 sm:justify-end">
+                                            <Link
+                                                href={`${toUrl(checkout())}?quantity=${quantity}&mode=normal&count=${normalCount}`}
+                                                className="grid grid-cols-[20px_1fr] items-center justify-center w-full sm:w-[200px] sm:min-w-[200px] px-6 py-3 text-base font-medium bg-[#E00000] text-white hover:bg-[#E00000]/90 transition-colors rounded-[4px]"
+                                            >
+                                                <ShoppingCart className="size-5 justify-self-start shrink-0" />
+                                                <span className="text-center">通常購入する</span>
+                                            </Link>
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    addToCart({
+                                                        quantity: quantity as 5 | 10 | 20,
+                                                        mode: 'normal',
+                                                        count: normalCount,
+                                                    });
+                                                    router.visit('/cart');
+                                                }}
+                                                className="grid grid-cols-[20px_1fr] items-center justify-center w-full sm:w-[200px] sm:min-w-[200px] px-6 py-3 text-base font-medium rounded-[4px] border-0 text-[#ffffff] bg-[#d4af37] hover:bg-[#d4af37]/90 transition-colors cursor-pointer"
+                                            >
+                                                <ShoppingBag className="size-5 justify-self-start shrink-0" aria-hidden />
+                                                <span className="text-center">カートに追加</span>
+                                            </button>
+                                        </div>
                                     </div>
                                     <hr className="mt-4 border-t border-[#D9D9D9]" />
                                 </>

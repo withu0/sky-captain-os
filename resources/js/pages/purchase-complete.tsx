@@ -1,9 +1,11 @@
 import AppLayout from '@/layouts/app-layout';
 import { purchaseHistory } from '@/routes';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import { Check } from 'lucide-react';
+import type { SharedData } from '@/types';
 
 export default function PurchaseComplete() {
+    const orderNumber = (usePage<SharedData>().props.orderNumber as string | undefined) ?? null;
     return (
         <AppLayout sidebar={false}>
             <Head title="ご注文完了 | 天空隊長" />
@@ -22,9 +24,11 @@ export default function PurchaseComplete() {
                     <p className="mt-8 text-[22px] font-bold text-[#5e225e]">
                         ご注文ありがとうございました!
                     </p>
-                    <p className="mt-12 text-[14px] text-[#231C1D]">
-                        注文番号 : 00000000
-                    </p>
+                    {orderNumber && (
+                        <p className="mt-12 text-[14px] text-[#231C1D]">
+                            注文番号 : {orderNumber}
+                        </p>
+                    )}
                     <div className="mt-12 flex max-w-[560px] flex-col gap-3 text-[14px] leading-relaxed text-[#231C1D]">
                         ご注文ありがとうございます!<br/>
                         注文内容が記載された確認メールを送信しました。<br/>

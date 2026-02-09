@@ -13,7 +13,6 @@ export default function AuthLayout({
     title: string;
     description: string;
     branding?: 'sky-captain';
-    /** When true, show the sky-captain header bar above the auth content. */
     showHeaderBar?: boolean;
 }) {
     if (showHeaderBar && branding === 'sky-captain') {

@@ -32,17 +32,11 @@ class Address extends Model
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * Full postal code (XXX-XXXX).
-     */
     public function getPostalCodeAttribute(): string
     {
         return "{$this->postal_code_1}-{$this->postal_code_2}";
     }
 
-    /**
-     * Full name (last + first).
-     */
     public function getFullNameAttribute(): string
     {
         return "{$this->last_name} {$this->first_name}";
