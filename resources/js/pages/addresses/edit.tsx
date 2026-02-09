@@ -5,8 +5,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import { PREFECTURES } from '@/lib/prefectures';
-import { purchaseProcedure } from '@/routes';
-import { Form, Head, Link } from '@inertiajs/react';
+import { toUrl } from '@/lib/utils';
+import { checkout } from '@/routes';
+import { Form, Head, Link, router } from '@inertiajs/react';
 import { useState } from 'react';
 import { Plus, Pencil, ChevronLeft } from 'lucide-react';
 
@@ -23,45 +24,17 @@ type Address = {
     building: string | null;
 };
 
-const MOCKUP_ADDRESSES: Address[] = [
-    {
-        id: -1,
-        last_name: '山田',
-        first_name: '太郎',
-        phone: '0900000000',
-        postal_code_1: '980',
-        postal_code_2: '1234',
-        prefecture: '東京都',
-        city: '〇〇区△△',
-        street: '1-23-4',
-        building: null,
-    },
-    {
-        id: -2,
-        last_name: '山田',
-        first_name: '太郎',
-        phone: '0900000000',
-        postal_code_1: '000',
-        postal_code_2: '1234',
-        prefecture: '沖縄県',
-        city: '那覇市おもろまち',
-        street: '1-23-4',
-        building: 'おもろまちマンション1304',
-    },
-];
-
 export default function AddressesEdit({
     addresses = [],
+    returnTo,
 }: {
     addresses?: Address[];
+    returnTo?: string | null;
 }) {
     const [editingAddress, setEditingAddress] = useState<Address | null>(null);
-    const displayAddresses =
-        addresses.length > 0 ? addresses : MOCKUP_ADDRESSES;
-    const addressFormProps =
-        editingAddress && editingAddress.id > 0
-            ? AddressController.update.form(editingAddress.id)
-            : AddressController.store.form();
+    const addressFormProps = editingAddress
+        ? AddressController.update.form(editingAddress.id)
+        : AddressController.store.form();
 
     const inputClass =
         'block w-full rounded border border-[#D9D9D9] bg-white px-3 py-2.5 text-[14px] text-[#231C1D] focus:outline-none focus:ring-2 focus:ring-[#D4AC4C]/40';
@@ -72,13 +45,17 @@ export default function AddressesEdit({
             <Head title="お届け先住所を編集 | 天空隊長" />
             <div className="mx-auto w-full max-w-[980px] px-4 pt-4 pb-8">
                 <div className="flex items-center gap-3">
-                    <Link
-                        href={purchaseProcedure()}
+                    <a
+                        href={returnTo || toUrl(checkout())}
                         className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#D9D9D9] bg-white text-[#231C1D] hover:bg-[#F5F5F5]"
                         aria-label="戻る"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            router.visit(returnTo || toUrl(checkout()), { preserveState: false });
+                        }}
                     >
                         <ChevronLeft className="size-5" />
-                    </Link>
+                    </a>
                     <h1 className="text-[20px] font-bold text-[#231C1D]">
                         お届け先住所を編集
                     </h1>
@@ -103,7 +80,7 @@ export default function AddressesEdit({
                                 新しい住所
                             </Link>
                             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-stretch sm:justify-start">
-                                {displayAddresses.map((addr) => (
+                                {addresses.map((addr) => (
                                     <div
                                         key={addr.id}
                                         className="w-full sm:max-w-[320px] rounded-[3px] border border-[#E5E5E5] bg-[#FAFAFA] p-4"
@@ -128,11 +105,7 @@ export default function AddressesEdit({
                                             <button
                                                 type="button"
                                                 onClick={() => {
-                                                    if (addr.id > 0) {
-                                                        setEditingAddress(addr);
-                                                    } else {
-                                                        setEditingAddress(null);
-                                                    }
+                                                    setEditingAddress(addr);
                                                     document
                                                         .getElementById(
                                                             'address-form'

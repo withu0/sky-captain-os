@@ -50,11 +50,13 @@ class User extends Authenticatable
         ];
     }
 
-    /**
-     * Get the user's delivery addresses.
-     */
     public function addresses(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Address::class);
+    }
+
+    public function orders(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Order::class);
     }
 }

@@ -2,12 +2,13 @@ import {
     home,
     login,
     logout,
+    purchaseHistory,
     register,
 } from '@/routes';
 import { edit as profileEdit } from '@/routes/profile';
 import type { SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { LogIn, LogOut, User, UserPlus } from 'lucide-react';
+import { History, LogIn, LogOut, ShoppingBag, User, UserPlus } from 'lucide-react';
 
 const navItemClass =
     'flex flex-col items-center justify-center gap-0.5 text-[#231C1D] hover:opacity-80 transition-opacity text-[11px] sm:text-[12px] font-medium shrink-0';
@@ -52,6 +53,18 @@ export function SkyCaptainHeadbar() {
                         <Link href={profileEdit()} className={navItemClass}>
                             <User className="size-4 sm:size-5 text-[#231C1D]" aria-hidden />
                             <span>マイページ</span>
+                        </Link>
+                        <Link href={purchaseHistory()} className={navItemClass} aria-label="購入履歴">
+                            <History className="size-4 sm:size-5 text-[#231C1D]" aria-hidden />
+                            <span>購入履歴</span>
+                        </Link>
+                        <Link
+                            href="/cart"
+                            className="flex flex-col items-center justify-center gap-0.5 text-[#231C1D] hover:opacity-80 transition-opacity shrink-0"
+                            aria-label="カート"
+                        >
+                            <ShoppingBag className="size-4 sm:size-5" aria-hidden />
+                            <span className="text-[11px] sm:text-[12px] font-medium">カート</span>
                         </Link>
                     </>
                 ) : (

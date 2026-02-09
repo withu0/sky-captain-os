@@ -1,4 +1,5 @@
 import { SkyCaptainHeadbar } from '@/components/sky-captain-headbar';
+import { toUrl } from '@/lib/utils';
 import { Head, Link } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 import { ArrowRight } from '@/components/icon/ArrowRight';
@@ -177,7 +178,7 @@ export default function Landing() {
                                     <span className="text-[32px]">380</span>
                                     <span className="text-[20px]">円</span>
                                 </div>
-                                <Link href={purchase()} className="inline-flex flex-row flex-nowrap items-center justify-center gap-1 bg-[#FFF8F8] border border-[#ED0000] rounded-full px-4 py-2 cursor-pointer whitespace-nowrap">
+                                <Link href={`${toUrl(purchase())}?quantity=5`} className="inline-flex flex-row flex-nowrap items-center justify-center gap-1 bg-[#FFF8F8] border border-[#ED0000] rounded-full px-4 py-2 cursor-pointer whitespace-nowrap">
                                     <span className="text-[#ED0000] text-base">購入する</span>
                                     <span className="shrink-0"><ArrowRight color="#ED0000" /></span>
                                 </Link>
@@ -217,7 +218,7 @@ export default function Landing() {
                                     <span className="text-[32px]">380</span>
                                     <span className="text-[20px]">円</span>
                                 </div>
-                                <Link href={purchase()} className="inline-flex flex-row flex-nowrap items-center justify-center gap-1 bg-[#FFF8F8] border border-[#ED0000] rounded-full px-4 py-2 cursor-pointer whitespace-nowrap">
+                                <Link href={`${toUrl(purchase())}?quantity=10`} className="inline-flex flex-row flex-nowrap items-center justify-center gap-1 bg-[#FFF8F8] border border-[#ED0000] rounded-full px-4 py-2 cursor-pointer whitespace-nowrap">
                                     <span className="text-[#ED0000] text-base">購入する</span>
                                     <span className="shrink-0"><ArrowRight color="#ED0000" /></span>
                                 </Link>
@@ -257,7 +258,7 @@ export default function Landing() {
                                     <span className="text-[32px]">320</span>
                                     <span className="text-[20px]">円</span>
                                 </div>
-                                <Link href={purchase()} className="inline-flex flex-row flex-nowrap items-center justify-center gap-1 bg-[#FFF8F8] border border-[#ED0000] rounded-full px-4 py-2 cursor-pointer whitespace-nowrap">
+                                <Link href={`${toUrl(purchase())}?quantity=20`} className="inline-flex flex-row flex-nowrap items-center justify-center gap-1 bg-[#FFF8F8] border border-[#ED0000] rounded-full px-4 py-2 cursor-pointer whitespace-nowrap">
                                     <span className="text-[#ED0000] text-base">購入する</span>
                                     <span className="shrink-0"><ArrowRight color="#ED0000" /></span>
                                 </Link>
@@ -419,7 +420,7 @@ export default function Landing() {
                                     <span className="text-[24px] md:text-[32px]">380</span>
                                     <span className="text-[16px] md:text-[20px]">円</span>
                                 </div>
-                                <Link href={purchase()} className="inline-flex flex-row flex-nowrap items-center justify-center gap-1 bg-[#FFF8F8] border border-[#ED0000] rounded-full px-3 py-1.5 md:px-4 md:py-2 cursor-pointer whitespace-nowrap">
+                                <Link href={`${toUrl(purchase())}?quantity=5`} className="inline-flex flex-row flex-nowrap items-center justify-center gap-1 bg-[#FFF8F8] border border-[#ED0000] rounded-full px-3 py-1.5 md:px-4 md:py-2 cursor-pointer whitespace-nowrap">
                                     <span className="text-[#ED0000] text-sm md:text-base">購入する</span>
                                     <span className="shrink-0"><ArrowRight color="#ED0000" /></span>
                                 </Link>
@@ -459,7 +460,7 @@ export default function Landing() {
                                     <span className="text-[24px] md:text-[32px]">380</span>
                                     <span className="text-[16px] md:text-[20px]">円</span>
                                 </div>
-                                <Link href={purchase()} className="inline-flex flex-row flex-nowrap items-center justify-center gap-1 bg-[#FFF8F8] border border-[#ED0000] rounded-full px-3 py-1.5 md:px-4 md:py-2 cursor-pointer whitespace-nowrap">
+                                <Link href={`${toUrl(purchase())}?quantity=10`} className="inline-flex flex-row flex-nowrap items-center justify-center gap-1 bg-[#FFF8F8] border border-[#ED0000] rounded-full px-3 py-1.5 md:px-4 md:py-2 cursor-pointer whitespace-nowrap">
                                     <span className="text-[#ED0000] text-sm md:text-base">購入する</span>
                                     <span className="shrink-0"><ArrowRight color="#ED0000" /></span>
                                 </Link>
@@ -499,7 +500,7 @@ export default function Landing() {
                                     <span className="text-[24px] md:text-[32px]">320</span>
                                     <span className="text-[16px] md:text-[20px]">円</span>
                                 </div>
-                                <Link href={purchase()} className="inline-flex flex-row flex-nowrap items-center justify-center gap-1 bg-[#FFF8F8] border border-[#ED0000] rounded-full px-3 py-1.5 md:px-4 md:py-2 cursor-pointer whitespace-nowrap">
+                                <Link href={`${toUrl(purchase())}?quantity=20`} className="inline-flex flex-row flex-nowrap items-center justify-center gap-1 bg-[#FFF8F8] border border-[#ED0000] rounded-full px-3 py-1.5 md:px-4 md:py-2 cursor-pointer whitespace-nowrap">
                                     <span className="text-[#ED0000] text-sm md:text-base">購入する</span>
                                     <span className="shrink-0"><ArrowRight color="#ED0000" /></span>
                                 </Link>
