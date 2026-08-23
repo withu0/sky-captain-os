@@ -3,7 +3,8 @@ import { removeFromCart, getCart, type CartItemStored } from '@/lib/cart';
 import { formatYen, getVariant } from '@/lib/product-variants';
 import { toUrl } from '@/lib/utils';
 import { purchase } from '@/routes';
-import { Head, Link } from '@inertiajs/react';
+import type { SharedData } from '@/types';
+import { Head, Link, usePage } from '@inertiajs/react';
 import { ChevronLeft, ShoppingCart, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
@@ -42,6 +43,8 @@ function CartItemImage() {
 }
 
 export default function Cart() {
+    const { props } = usePage<SharedData>();
+    const csrfToken = (props.csrf_token as string | undefined) ?? '';
     const [cartItems, setCartItems] = useState<CartItemStored[]>([]);
 
     useEffect(() => {
@@ -226,11 +229,7 @@ export default function Cart() {
                                                         <input
                                                             type="hidden"
                                                             name="_token"
-                                                            value={
-                                                                typeof document !== 'undefined'
-                                                                    ? document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? ''
-                                                                    : ''
-                                                            }
+                                                            value={csrfToken}
                                                         />
                                                         <input
                                                             type="hidden"
